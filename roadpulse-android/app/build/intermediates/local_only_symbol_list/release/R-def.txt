@@ -1,5 +1,6 @@
 R_DEF: Internal format may change without notice
 local
+drawable ic_notification
 string app_name
 string background_location_permission_rationale
 string battery_optimization_message

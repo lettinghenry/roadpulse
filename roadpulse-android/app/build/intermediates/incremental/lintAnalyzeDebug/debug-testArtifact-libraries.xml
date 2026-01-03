@@ -605,10 +605,6 @@
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
   <library
-      name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22@jar"
-      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk8\1.8.22\b25c86d47d6b962b9cf0f8c3f320c8a10eea3dd1\kotlin-stdlib-jdk8-1.8.22.jar"
-      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22"/>
-  <library
       name="androidx.savedstate:savedstate-ktx:1.2.1@aar"
       jars="C:\Users\letti\.gradle\caches\transforms-3\caf1aa86de095623cba73c352b4b4991\transformed\savedstate-ktx-1.2.1\jars\classes.jar"
       resolved="androidx.savedstate:savedstate-ktx:1.2.1"
@@ -719,10 +715,6 @@
       symbolFile="R.txt"
       externalAnnotations="annotations.zip"
       proguardRules="proguard.txt"/>
-  <library
-      name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22@jar"
-      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk7\1.8.22\4dabb8248310d833bb6a8b516024a91fd3d275c\kotlin-stdlib-jdk7-1.8.22.jar"
-      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22"/>
   <library
       name="org.jetbrains.kotlin:kotlin-stdlib:1.9.21@jar"
       jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib\1.9.21\17ee3e873d439566c7d8354403b5f3d9744c4c9c\kotlin-stdlib-1.9.21.jar"
@@ -964,6 +956,10 @@
       jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\io.kotest\kotest-property-jvm\5.8.0\c0b1efef855a1fe8389ea0d71e32bf5bca7b1a0a\kotest-property-jvm-5.8.0.jar"
       resolved="io.kotest:kotest-property-jvm:5.8.0"/>
   <library
+      name="io.mockk:mockk-jvm:1.13.8@jar"
+      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\io.mockk\mockk-jvm\1.13.8\eac6861e0fe27adfd0bdf1109893b91806105cba\mockk-jvm-1.13.8.jar"
+      resolved="io.mockk:mockk-jvm:1.13.8"/>
+  <library
       name="io.kotest:kotest-framework-discovery-jvm:5.8.0@jar"
       jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\io.kotest\kotest-framework-discovery-jvm\5.8.0\9a13b703f1cf45e5c7d63fd393cf446428e0802b\kotest-framework-discovery-jvm-5.8.0.jar"
       resolved="io.kotest:kotest-framework-discovery-jvm:5.8.0"/>
@@ -984,9 +980,33 @@
       jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\io.kotest\kotest-assertions-shared-jvm\5.8.0\624e26cd61cdf900a7fded2783c4b747b406f7f5\kotest-assertions-shared-jvm-5.8.0.jar"
       resolved="io.kotest:kotest-assertions-shared-jvm:5.8.0"/>
   <library
+      name="io.mockk:mockk-dsl-jvm:1.13.8@jar"
+      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\io.mockk\mockk-dsl-jvm\1.13.8\221f6638f7b4216b08266e6ab826f22dff46e0fa\mockk-dsl-jvm-1.13.8.jar"
+      resolved="io.mockk:mockk-dsl-jvm:1.13.8"/>
+  <library
+      name="io.mockk:mockk-agent-jvm:1.13.8@jar"
+      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\io.mockk\mockk-agent-jvm\1.13.8\79d1017369f8ce49ac5cc08400c6b652d263490b\mockk-agent-jvm-1.13.8.jar"
+      resolved="io.mockk:mockk-agent-jvm:1.13.8"/>
+  <library
+      name="io.mockk:mockk-agent-api-jvm:1.13.8@jar"
+      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\io.mockk\mockk-agent-api-jvm\1.13.8\be15c6ed2a3a5c4660972da44ebe7b01add2d72e\mockk-agent-api-jvm-1.13.8.jar"
+      resolved="io.mockk:mockk-agent-api-jvm:1.13.8"/>
+  <library
+      name="io.mockk:mockk-core-jvm:1.13.8@jar"
+      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\io.mockk\mockk-core-jvm\1.13.8\4d7b2de28a0384827272fef9266172d73c3bbd36\mockk-core-jvm-1.13.8.jar"
+      resolved="io.mockk:mockk-core-jvm:1.13.8"/>
+  <library
       name="io.kotest:kotest-assertions-api-jvm:5.8.0@jar"
       jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\io.kotest\kotest-assertions-api-jvm\5.8.0\a96590a2196c65412679dcb226658547abc008a0\kotest-assertions-api-jvm-5.8.0.jar"
       resolved="io.kotest:kotest-assertions-api-jvm:5.8.0"/>
+  <library
+      name="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10@jar"
+      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk8\1.9.10\c7510d64a83411a649c76f2778304ddf71d7437b\kotlin-stdlib-jdk8-1.9.10.jar"
+      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.10"/>
+  <library
+      name="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10@jar"
+      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-stdlib-jdk7\1.9.10\bc5bfc2690338defd5195b05c57562f2194eeb10\kotlin-stdlib-jdk7-1.9.10.jar"
+      resolved="org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.10"/>
   <library
       name="com.github.ajalt:mordant:1.2.1@jar"
       jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\com.github.ajalt\mordant\1.2.1\6cbab1a74ab6dafbf81b7706733d4c2fbaff2e0b\mordant-1.2.1.jar"
@@ -1003,6 +1023,14 @@
       name="org.hamcrest:hamcrest-core:1.3@jar"
       jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\org.hamcrest\hamcrest-core\1.3\42a25dc3219429f0e5d060061f71acb49bf010a0\hamcrest-core-1.3.jar"
       resolved="org.hamcrest:hamcrest-core:1.3"/>
+  <library
+      name="net.bytebuddy:byte-buddy:1.14.6@jar"
+      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy\1.14.6\316c1b1f3208a9d716c4419ed2080443235f7d1\byte-buddy-1.14.6.jar"
+      resolved="net.bytebuddy:byte-buddy:1.14.6"/>
+  <library
+      name="net.bytebuddy:byte-buddy-agent:1.14.6@jar"
+      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.14.6\46e2545d7a97b6ccb195621650c5957279eb4812\byte-buddy-agent-1.14.6.jar"
+      resolved="net.bytebuddy:byte-buddy-agent:1.14.6"/>
   <library
       name="org.junit.platform:junit-platform-suite-api:1.8.2@jar"
       jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\org.junit.platform\junit-platform-suite-api\1.8.2\a148ffd359cac121fcba000ad7f5a75b5e2ac2b4\junit-platform-suite-api-1.8.2.jar"
@@ -1036,6 +1064,10 @@
       jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\com.github.curious-odd-man\rgxgen\1.4\8d5947bd00bd8e12313c56b5e6f5f9f2f0e34433\rgxgen-1.4.jar"
       resolved="com.github.curious-odd-man:rgxgen:1.4"/>
   <library
+      name="org.objenesis:objenesis:3.3@jar"
+      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\org.objenesis\objenesis\3.3\1049c09f1de4331e8193e579448d0916d75b7631\objenesis-3.3.jar"
+      resolved="org.objenesis:objenesis:3.3"/>
+  <library
       name="org.apiguardian:apiguardian-api:1.1.2@jar"
       jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\org.apiguardian\apiguardian-api\1.1.2\a231e0d844d2721b0fa1b238006d15c6ded6842a\apiguardian-api-1.1.2.jar"
       resolved="org.apiguardian:apiguardian-api:1.1.2"
@@ -1049,9 +1081,21 @@
       jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlinx\kotlinx-coroutines-debug\1.7.3\42a66c60df2c94188e39e3c9165f6b54c9c7d9d0\kotlinx-coroutines-debug-1.7.3.jar"
       resolved="org.jetbrains.kotlinx:kotlinx-coroutines-debug:1.7.3"/>
   <library
-      name="org.jetbrains.kotlin:kotlin-reflect:1.8.10@jar"
-      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-reflect\1.8.10\1e90b778ea4669b6bcbfaca57313665ddd804779\kotlin-reflect-1.8.10.jar"
-      resolved="org.jetbrains.kotlin:kotlin-reflect:1.8.10"/>
+      name="org.jetbrains.kotlin:kotlin-reflect:1.9.10@jar"
+      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\org.jetbrains.kotlin\kotlin-reflect\1.9.10\dd37cb80926cb4ed427b606502e6f6f063d38fb5\kotlin-reflect-1.9.10.jar"
+      resolved="org.jetbrains.kotlin:kotlin-reflect:1.9.10"/>
+  <library
+      name="org.junit.jupiter:junit-jupiter:5.8.2@jar"
+      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\org.junit.jupiter\junit-jupiter\5.8.2\5a817b1e63f1217e5c586090c45e681281f097ad\junit-jupiter-5.8.2.jar"
+      resolved="org.junit.jupiter:junit-jupiter:5.8.2"/>
+  <library
+      name="org.junit.jupiter:junit-jupiter-params:5.8.2@jar"
+      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\org.junit.jupiter\junit-jupiter-params\5.8.2\ddeafe92fc263f895bfb73ffeca7fd56e23c2cce\junit-jupiter-params-5.8.2.jar"
+      resolved="org.junit.jupiter:junit-jupiter-params:5.8.2"/>
+  <library
+      name="org.junit.jupiter:junit-jupiter-engine:5.8.2@jar"
+      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\org.junit.jupiter\junit-jupiter-engine\5.8.2\c598b4328d2f397194d11df3b1648d68d7d990e3\junit-jupiter-engine-5.8.2.jar"
+      resolved="org.junit.jupiter:junit-jupiter-engine:5.8.2"/>
   <library
       name="io.github.java-diff-utils:java-diff-utils:4.12@jar"
       jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\io.github.java-diff-utils\java-diff-utils\4.12\1a712a91324d566eef39817fc5c9980eb10c21db\java-diff-utils-4.12.jar"
@@ -1068,12 +1112,4 @@
       name="net.java.dev.jna:jna:5.9.0@jar"
       jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\net.java.dev.jna\jna\5.9.0\8f503e6d9b500ceff299052d6be75b38c7257758\jna-5.9.0.jar"
       resolved="net.java.dev.jna:jna:5.9.0"/>
-  <library
-      name="net.bytebuddy:byte-buddy:1.10.9@jar"
-      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy\1.10.9\2c03f15cd1131692feca93f190ed81412a3de961\byte-buddy-1.10.9.jar"
-      resolved="net.bytebuddy:byte-buddy:1.10.9"/>
-  <library
-      name="net.bytebuddy:byte-buddy-agent:1.10.9@jar"
-      jars="C:\Users\letti\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.10.9\cbbeffa557e6b1b4cbb181b0782436921c523699\byte-buddy-agent-1.10.9.jar"
-      resolved="net.bytebuddy:byte-buddy-agent:1.10.9"/>
 </libraries>

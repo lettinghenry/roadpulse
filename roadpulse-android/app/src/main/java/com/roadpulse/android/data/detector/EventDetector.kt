@@ -42,12 +42,12 @@ class EventDetector @Inject constructor() {
             return null
         }
         
-        // Apply GPS accuracy filtering
+        // Apply GPS accuracy filtering (Requirements 8.1: 20-meter threshold)
         if (!location.hasGoodAccuracy()) {
             return null
         }
         
-        // Check for device handling (rapid orientation changes)
+        // Check for device handling (rapid orientation changes) (Requirements 8.2)
         if (sensorData.gyroscope.isRapidOrientationChange()) {
             return null
         }

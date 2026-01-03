@@ -31,7 +31,7 @@
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml"
-            line="33"
+            line="36"
             column="13"/>
     </issue>
 
@@ -214,6 +214,22 @@
     <issue
         id="GradleDependency"
         severity="Warning"
+        message="A newer version of io.mockk:mockk than 1.13.8 is available: 1.14.5"
+        category="Correctness"
+        priority="4"
+        summary="Obsolete Gradle Dependency"
+        explanation="This detector looks for usages of libraries where the version you are using is not the current stable release. Using older versions is fine, and there are cases where you deliberately want to stick with an older version. However, you may simply not be aware that a more recent version is available, and that is what this lint check helps find."
+        errorLine1="    testImplementation(&quot;io.mockk:mockk:1.13.8&quot;)"
+        errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\misc\roadpulse\roadpulse-android\app\build.gradle.kts"
+            line="97"
+            column="25"/>
+    </issue>
+
+    <issue
+        id="GradleDependency"
+        severity="Warning"
         message="A newer version of androidx.room:room-testing than 2.6.1 is available: 2.8.4"
         category="Correctness"
         priority="4"
@@ -223,7 +239,7 @@
         errorLine2="                        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\misc\roadpulse\roadpulse-android\app\build.gradle.kts"
-            line="98"
+            line="99"
             column="25"/>
     </issue>
 
@@ -239,7 +255,7 @@
         errorLine2="                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\misc\roadpulse\roadpulse-android\app\build.gradle.kts"
-            line="100"
+            line="101"
             column="32"/>
     </issue>
 
@@ -255,8 +271,72 @@
         errorLine2="                               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="C:\misc\roadpulse\roadpulse-android\app\build.gradle.kts"
-            line="101"
+            line="102"
             column="32"/>
+    </issue>
+
+    <issue
+        id="WakelockTimeout"
+        severity="Warning"
+        message="Provide a timeout when requesting a wakelock with `PowerManager.Wakelock.acquire(long timeout)`. This will ensure the OS will cleanup any wakelocks that last longer than you intend, and will save your user&apos;s battery."
+        category="Performance"
+        priority="9"
+        summary="Using wakeLock without timeout"
+        explanation="Wakelocks have two acquire methods: one with a timeout, and one without. You should generally always use the one with a timeout. A typical timeout is 10 minutes. If the task takes longer than it is critical that it happens (i.e. can&apos;t use `JobScheduler`) then maybe they should consider a foreground service instead (which is a stronger run guarantee and lets the user know something long/important is happening)."
+        errorLine1="                wakeLock?.acquire()"
+        errorLine2="                ~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\misc\roadpulse\roadpulse-android\app\src\main\java\com\roadpulse\android\service\SensorMonitorService.kt"
+            line="179"
+            column="17"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        severity="Warning"
+        message="Unnecessary; SDK_INT is always >= 26"
+        category="Performance"
+        priority="6"
+        summary="Obsolete SDK_INT Version Check"
+        explanation="This check flags version checks that are not necessary, because the `minSdkVersion` (or surrounding known API level) is already at least as high as the version checked for.&#xA;&#xA;Similarly, it also looks for resources in `-vNN` folders, such as `values-v14` where the version qualifier is less than or equal to the `minSdkVersion`, where the contents should be merged into the best folder."
+        errorLine1="        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\misc\roadpulse\roadpulse-android\app\src\main\java\com\roadpulse\android\service\SensorMonitorService.kt"
+            line="489"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        severity="Warning"
+        message="Unnecessary; SDK_INT is always >= 26"
+        category="Performance"
+        priority="6"
+        summary="Obsolete SDK_INT Version Check"
+        explanation="This check flags version checks that are not necessary, because the `minSdkVersion` (or surrounding known API level) is already at least as high as the version checked for.&#xA;&#xA;Similarly, it also looks for resources in `-vNN` folders, such as `values-v14` where the version qualifier is less than or equal to the `minSdkVersion`, where the contents should be merged into the best folder."
+        errorLine1="        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {"
+        errorLine2="                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\misc\roadpulse\roadpulse-android\app\src\main\java\com\roadpulse\android\service\SensorMonitorService.kt"
+            line="501"
+            column="20"/>
+    </issue>
+
+    <issue
+        id="ObsoleteSdkInt"
+        severity="Warning"
+        message="Unnecessary; SDK_INT is always >= 26"
+        category="Performance"
+        priority="6"
+        summary="Obsolete SDK_INT Version Check"
+        explanation="This check flags version checks that are not necessary, because the `minSdkVersion` (or surrounding known API level) is already at least as high as the version checked for.&#xA;&#xA;Similarly, it also looks for resources in `-vNN` folders, such as `values-v14` where the version qualifier is less than or equal to the `minSdkVersion`, where the contents should be merged into the best folder."
+        errorLine1="        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {"
+        errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~">
+        <location
+            file="C:\misc\roadpulse\roadpulse-android\app\src\main\java\com\roadpulse\android\service\SensorMonitorService.kt"
+            line="513"
+            column="13"/>
     </issue>
 
     <issue
@@ -465,7 +545,7 @@
         errorLine2="     ~~~~~~~~~~~">
         <location
             file="C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml"
-            line="20"
+            line="23"
             column="6"/>
     </issue>
 

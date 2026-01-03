@@ -7,6 +7,11 @@
                     boolean="true"/>
             </map>
     </map>
+    <map id="NotificationPermission">
+        <entry
+            name="source"
+            boolean="true"/>
+    </map>
     <map id="UnusedResources">
         <location id="R.string.storage_error"
             file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/values/strings.xml"
@@ -82,7 +87,7 @@
             endOffset="1009"/>
         <entry
             name="model"
-            string="string[background_location_permission_rationale(D),sensor_service_channel_name(D),app_name(U),sensor_service_title(D),storage_error(D),location_permission_rationale(D),battery_optimization_settings(D),sensor_service_description(D),location_unavailable(D),sensor_unavailable(D),battery_optimization_title(D),battery_optimization_message(D),sensor_service_channel_description(D)],style[Theme_RoadPulse(U)],xml[data_extraction_rules(U),backup_rules(U)];;;;"/>
+            string="drawable[ic_notification(U)],string[background_location_permission_rationale(D),sensor_service_channel_name(D),app_name(U),sensor_service_title(D),storage_error(D),location_permission_rationale(D),battery_optimization_settings(D),sensor_service_description(D),location_unavailable(D),sensor_unavailable(D),battery_optimization_title(D),battery_optimization_message(D),sensor_service_channel_description(D)],style[Theme_RoadPulse(U)],xml[data_extraction_rules(U),backup_rules(U)];;;;"/>
         <location id="R.string.sensor_service_channel_description"
             file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/values/strings.xml"
             line="9"

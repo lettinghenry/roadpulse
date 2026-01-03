@@ -1,10 +1,18 @@
 [
     {
-        "merged": "com.roadpulse.android.app-merged_res-53:/xml_data_extraction_rules.xml.flat",
-        "source": "com.roadpulse.android.app-main-54:/xml/data_extraction_rules.xml"
+        "merged": "C:\\Users\\letti\\.gradle\\daemon\\8.4\\com.roadpulse.android.app-merged_res-53:\\xml_data_extraction_rules.xml.flat",
+        "source": "C:\\Users\\letti\\.gradle\\daemon\\8.4\\com.roadpulse.android.app-main-54:\\xml\\data_extraction_rules.xml"
     },
     {
-        "merged": "com.roadpulse.android.app-merged_res-53:/xml_backup_rules.xml.flat",
-        "source": "com.roadpulse.android.app-main-54:/xml/backup_rules.xml"
+        "merged": "com.roadpulse.android.app-merged_res-53:/drawable_ic_notification.xml.flat",
+        "source": "com.roadpulse.android.app-main-54:/drawable/ic_notification.xml"
+    },
+    {
+        "merged": "C:\\Users\\letti\\.gradle\\daemon\\8.4\\com.roadpulse.android.app-merged_res-53:\\xml_backup_rules.xml.flat",
+        "source": "C:\\Users\\letti\\.gradle\\daemon\\8.4\\com.roadpulse.android.app-main-54:\\xml\\backup_rules.xml"
+    },
+    {
+        "merged": "C:\\Users\\letti\\.gradle\\daemon\\8.4\\com.roadpulse.android.app-merged_res-53:\\drawable_ic_notification.xml.flat",
+        "source": "C:\\Users\\letti\\.gradle\\daemon\\8.4\\com.roadpulse.android.app-main-54:\\drawable\\ic_notification.xml"
     }
 ]

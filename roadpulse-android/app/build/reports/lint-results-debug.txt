@@ -20,7 +20,7 @@ C:\misc\roadpulse\roadpulse-android\app\build.gradle.kts:16: Warning: Not target
 
    https://developer.android.com/distribute/best-practices/develop/target-sdk.html
 
-C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:33: Warning: Redundant label can be removed [RedundantLabel]
+C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:36: Warning: Redundant label can be removed [RedundantLabel]
             android:label="@string/app_name"
             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -62,13 +62,16 @@ C:\misc\roadpulse\roadpulse-android\app\build.gradle.kts:84: Warning: A newer ve
 C:\misc\roadpulse\roadpulse-android\app\build.gradle.kts:87: Warning: A newer version of androidx.work:work-runtime-ktx than 2.9.0 is available: 2.11.0 [GradleDependency]
     implementation("androidx.work:work-runtime-ktx:2.9.0")
                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\misc\roadpulse\roadpulse-android\app\build.gradle.kts:98: Warning: A newer version of androidx.room:room-testing than 2.6.1 is available: 2.8.4 [GradleDependency]
+C:\misc\roadpulse\roadpulse-android\app\build.gradle.kts:97: Warning: A newer version of io.mockk:mockk than 1.13.8 is available: 1.14.5 [GradleDependency]
+    testImplementation("io.mockk:mockk:1.13.8")
+                        ~~~~~~~~~~~~~~~~~~~~~
+C:\misc\roadpulse\roadpulse-android\app\build.gradle.kts:99: Warning: A newer version of androidx.room:room-testing than 2.6.1 is available: 2.8.4 [GradleDependency]
     testImplementation("androidx.room:room-testing:2.6.1")
                         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\misc\roadpulse\roadpulse-android\app\build.gradle.kts:100: Warning: A newer version of androidx.test.ext:junit than 1.1.5 is available: 1.3.0 [GradleDependency]
+C:\misc\roadpulse\roadpulse-android\app\build.gradle.kts:101: Warning: A newer version of androidx.test.ext:junit than 1.1.5 is available: 1.3.0 [GradleDependency]
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-C:\misc\roadpulse\roadpulse-android\app\build.gradle.kts:101: Warning: A newer version of androidx.test.espresso:espresso-core than 3.5.1 is available: 3.7.0 [GradleDependency]
+C:\misc\roadpulse\roadpulse-android\app\build.gradle.kts:102: Warning: A newer version of androidx.test.espresso:espresso-core than 3.5.1 is available: 3.7.0 [GradleDependency]
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
                                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -78,6 +81,37 @@ C:\misc\roadpulse\roadpulse-android\app\build.gradle.kts:101: Warning: A newer v
    are cases where you deliberately want to stick with an older version.
    However, you may simply not be aware that a more recent version is
    available, and that is what this lint check helps find.
+
+C:\misc\roadpulse\roadpulse-android\app\src\main\java\com\roadpulse\android\service\SensorMonitorService.kt:179: Warning: Provide a timeout when requesting a wakelock with PowerManager.Wakelock.acquire(long timeout). This will ensure the OS will cleanup any wakelocks that last longer than you intend, and will save your user's battery. [WakelockTimeout]
+                wakeLock?.acquire()
+                ~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "WakelockTimeout":
+   Wakelocks have two acquire methods: one with a timeout, and one without.
+   You should generally always use the one with a timeout. A typical timeout
+   is 10 minutes. If the task takes longer than it is critical that it happens
+   (i.e. can't use JobScheduler) then maybe they should consider a foreground
+   service instead (which is a stronger run guarantee and lets the user know
+   something long/important is happening).
+
+C:\misc\roadpulse\roadpulse-android\app\src\main\java\com\roadpulse\android\service\SensorMonitorService.kt:489: Warning: Unnecessary; SDK_INT is always >= 26 [ObsoleteSdkInt]
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\misc\roadpulse\roadpulse-android\app\src\main\java\com\roadpulse\android\service\SensorMonitorService.kt:501: Warning: Unnecessary; SDK_INT is always >= 26 [ObsoleteSdkInt]
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+C:\misc\roadpulse\roadpulse-android\app\src\main\java\com\roadpulse\android\service\SensorMonitorService.kt:513: Warning: Unnecessary; SDK_INT is always >= 26 [ObsoleteSdkInt]
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "ObsoleteSdkInt":
+   This check flags version checks that are not necessary, because the
+   minSdkVersion (or surrounding known API level) is already at least as high
+   as the version checked for.
+
+   Similarly, it also looks for resources in -vNN folders, such as values-v14
+   where the version qualifier is less than or equal to the minSdkVersion,
+   where the contents should be merged into the best folder.
 
 C:\misc\roadpulse\roadpulse-android\app\src\main\res\values\strings.xml:6: Warning: The resource R.string.sensor_service_title appears to be unused [UnusedResources]
     <string name="sensor_service_title">Road Monitoring Active</string>
@@ -130,7 +164,7 @@ C:\misc\roadpulse\roadpulse-android\app\src\main\res\values\strings.xml:23: Warn
    lint.unused-resources.exclude-tests =true.
    ,
 
-C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:20: Warning: Should explicitly set android:icon, there is no default [MissingApplicationIcon]
+C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:23: Warning: Should explicitly set android:icon, there is no default [MissingApplicationIcon]
     <application
      ~~~~~~~~~~~
 
@@ -141,4 +175,4 @@ C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:20: Warning
 
    https://developer.android.com/studio/publish/preparing#publishing-configure
 
-0 errors, 29 warnings
+0 errors, 34 warnings

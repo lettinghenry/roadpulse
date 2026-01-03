@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:2:1-50:12
-INJECTED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:2:1-50:12
-INJECTED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:2:1-50:12
-INJECTED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:2:1-50:12
+ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:2:1-53:12
+INJECTED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:2:1-53:12
+INJECTED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:2:1-53:12
+INJECTED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:2:1-53:12
 MERGED from [androidx.hilt:hilt-work:1.1.0] C:\Users\letti\.gradle\caches\transforms-3\5ab2080710d9bb7122fee0639a0ffdb8\transformed\hilt-work-1.1.0\AndroidManifest.xml:17:1-22:12
 MERGED from [com.google.dagger:hilt-android:2.48] C:\Users\letti\.gradle\caches\transforms-3\a03fc11b189267583d35aa2250ea3fef\transformed\hilt-android-2.48\AndroidManifest.xml:16:1-19:12
 MERGED from [androidx.compose.material3:material3:1.1.2] C:\Users\letti\.gradle\caches\transforms-3\934799a5213251cb49e16c88cebcf1ab\transformed\material3-1.1.2\AndroidManifest.xml:17:1-22:12
@@ -102,13 +102,17 @@ uses-permission#android.permission.FOREGROUND_SERVICE_LOCATION
 ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:15:5-86
 	android:name
 		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:15:22-83
-uses-permission#android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
-ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:18:5-95
+uses-permission#android.permission.POST_NOTIFICATIONS
+ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:18:5-77
 	android:name
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:18:22-92
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:18:22-74
+uses-permission#android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:21:5-95
+	android:name
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:21:22-92
 application
-ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:20:5-48:19
-INJECTED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:20:5-48:19
+ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:23:5-51:19
+INJECTED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:23:5-51:19
 MERGED from [com.google.android.gms:play-services-location:21.0.1] C:\Users\letti\.gradle\caches\transforms-3\52aca6da41834aa364ae03a0eea898cf\transformed\play-services-location-21.0.1\AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-location:21.0.1] C:\Users\letti\.gradle\caches\transforms-3\52aca6da41834aa364ae03a0eea898cf\transformed\play-services-location-21.0.1\AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-base:18.1.0] C:\Users\letti\.gradle\caches\transforms-3\d5cb980dd913f687ae52bb45967378a6\transformed\play-services-base-18.1.0\AndroidManifest.xml:19:5-23:19
@@ -138,51 +142,51 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] C:\Users\letti\.gradle\cach
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.12.0] C:\Users\letti\.gradle\caches\transforms-3\d7c6a3018e6b26b10004e34cb885d4e5\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:26:9-35
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:29:9-35
 	android:label
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:25:9-41
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:28:9-41
 	android:fullBackupContent
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:24:9-54
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:27:9-54
 	tools:targetApi
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:28:9-29
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:31:9-29
 	android:allowBackup
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:22:9-35
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:25:9-35
 	android:theme
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:27:9-47
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:30:9-47
 	android:dataExtractionRules
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:23:9-65
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:26:9-65
 	android:name
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:21:9-45
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:24:9-45
 activity#com.roadpulse.android.MainActivity
-ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:30:9-39:20
+ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:33:9-42:20
 	android:label
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:33:13-45
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:36:13-45
 	android:exported
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:32:13-36
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:35:13-36
 	android:theme
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:34:13-51
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:37:13-51
 	android:name
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:31:13-41
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:34:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:35:13-38:29
+ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:38:13-41:29
 action#android.intent.action.MAIN
-ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:36:17-69
+ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:39:17-69
 	android:name
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:36:25-66
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:39:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:37:17-77
+ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:40:17-77
 	android:name
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:37:27-74
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:40:27-74
 service#com.roadpulse.android.service.SensorMonitorService
-ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:42:9-46:56
+ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:45:9-49:56
 	android:enabled
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:44:13-35
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:47:13-35
 	android:exported
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:45:13-37
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:48:13-37
 	android:foregroundServiceType
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:46:13-53
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:49:13-53
 	android:name
-		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:43:13-57
+		ADDED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:46:13-57
 uses-sdk
 INJECTED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml

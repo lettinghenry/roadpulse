@@ -32,370 +32,375 @@
 21-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:15:5-86
 21-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:15:22-83
 22
-23    <!-- Battery optimization exemption -->
-24    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-24-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:18:5-95
-24-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:18:22-92
-25    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-25-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:24:5-79
-25-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:24:22-76
-26    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-26-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:25:5-81
-26-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:25:22-78
-27
-28    <permission
-28-->[androidx.core:core:1.12.0] C:\Users\letti\.gradle\caches\transforms-3\d7c6a3018e6b26b10004e34cb885d4e5\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
-29        android:name="com.roadpulse.android.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-29-->[androidx.core:core:1.12.0] C:\Users\letti\.gradle\caches\transforms-3\d7c6a3018e6b26b10004e34cb885d4e5\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
-30        android:protectionLevel="signature" />
-30-->[androidx.core:core:1.12.0] C:\Users\letti\.gradle\caches\transforms-3\d7c6a3018e6b26b10004e34cb885d4e5\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
-31
-32    <uses-permission android:name="com.roadpulse.android.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-32-->[androidx.core:core:1.12.0] C:\Users\letti\.gradle\caches\transforms-3\d7c6a3018e6b26b10004e34cb885d4e5\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
-32-->[androidx.core:core:1.12.0] C:\Users\letti\.gradle\caches\transforms-3\d7c6a3018e6b26b10004e34cb885d4e5\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
-33
-34    <application
-34-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:20:5-48:19
-35        android:name="com.roadpulse.android.RoadPulseApplication"
-35-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:21:9-45
-36        android:allowBackup="true"
-36-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:22:9-35
-37        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-37-->[androidx.core:core:1.12.0] C:\Users\letti\.gradle\caches\transforms-3\d7c6a3018e6b26b10004e34cb885d4e5\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
-38        android:dataExtractionRules="@xml/data_extraction_rules"
-38-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:23:9-65
-39        android:debuggable="true"
-40        android:extractNativeLibs="false"
-41        android:fullBackupContent="@xml/backup_rules"
-41-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:24:9-54
-42        android:label="@string/app_name"
-42-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:25:9-41
-43        android:supportsRtl="true"
-43-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:26:9-35
-44        android:theme="@style/Theme.RoadPulse" >
-44-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:27:9-47
-45        <activity
-45-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:30:9-39:20
-46            android:name="com.roadpulse.android.MainActivity"
-46-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:31:13-41
-47            android:exported="true"
-47-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:32:13-36
-48            android:label="@string/app_name"
-48-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:33:13-45
-49            android:theme="@style/Theme.RoadPulse" >
-49-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:34:13-51
-50            <intent-filter>
-50-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:35:13-38:29
-51                <action android:name="android.intent.action.MAIN" />
-51-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:36:17-69
-51-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:36:25-66
-52
-53                <category android:name="android.intent.category.LAUNCHER" />
-53-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:37:17-77
-53-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:37:27-74
-54            </intent-filter>
-55        </activity>
-56
-57        <!-- Sensor monitoring foreground service -->
-58        <service
-58-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:42:9-46:56
-59            android:name="com.roadpulse.android.service.SensorMonitorService"
-59-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:43:13-57
-60            android:enabled="true"
-60-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:44:13-35
-61            android:exported="false"
-61-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:45:13-37
-62            android:foregroundServiceType="location" />
-62-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:46:13-53
-63
-64        <activity
-64-->[androidx.compose.ui:ui-tooling-android:1.5.4] C:\Users\letti\.gradle\caches\transforms-3\be40021f824b8eaff422b3dfa7eba04b\transformed\ui-tooling-release\AndroidManifest.xml:23:9-25:39
-65            android:name="androidx.compose.ui.tooling.PreviewActivity"
-65-->[androidx.compose.ui:ui-tooling-android:1.5.4] C:\Users\letti\.gradle\caches\transforms-3\be40021f824b8eaff422b3dfa7eba04b\transformed\ui-tooling-release\AndroidManifest.xml:24:13-71
-66            android:exported="true" />
-66-->[androidx.compose.ui:ui-tooling-android:1.5.4] C:\Users\letti\.gradle\caches\transforms-3\be40021f824b8eaff422b3dfa7eba04b\transformed\ui-tooling-release\AndroidManifest.xml:25:13-36
+23    <!-- Notification permissions for Android 13+ -->
+24    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+24-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:18:5-77
+24-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:18:22-74
+25
+26    <!-- Battery optimization exemption -->
+27    <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+27-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:21:5-95
+27-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:21:22-92
+28    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+28-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:24:5-79
+28-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:24:22-76
+29    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+29-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:25:5-81
+29-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:25:22-78
+30
+31    <permission
+31-->[androidx.core:core:1.12.0] C:\Users\letti\.gradle\caches\transforms-3\d7c6a3018e6b26b10004e34cb885d4e5\transformed\core-1.12.0\AndroidManifest.xml:22:5-24:47
+32        android:name="com.roadpulse.android.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+32-->[androidx.core:core:1.12.0] C:\Users\letti\.gradle\caches\transforms-3\d7c6a3018e6b26b10004e34cb885d4e5\transformed\core-1.12.0\AndroidManifest.xml:23:9-81
+33        android:protectionLevel="signature" />
+33-->[androidx.core:core:1.12.0] C:\Users\letti\.gradle\caches\transforms-3\d7c6a3018e6b26b10004e34cb885d4e5\transformed\core-1.12.0\AndroidManifest.xml:24:9-44
+34
+35    <uses-permission android:name="com.roadpulse.android.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+35-->[androidx.core:core:1.12.0] C:\Users\letti\.gradle\caches\transforms-3\d7c6a3018e6b26b10004e34cb885d4e5\transformed\core-1.12.0\AndroidManifest.xml:26:5-97
+35-->[androidx.core:core:1.12.0] C:\Users\letti\.gradle\caches\transforms-3\d7c6a3018e6b26b10004e34cb885d4e5\transformed\core-1.12.0\AndroidManifest.xml:26:22-94
+36
+37    <application
+37-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:23:5-51:19
+38        android:name="com.roadpulse.android.RoadPulseApplication"
+38-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:24:9-45
+39        android:allowBackup="true"
+39-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:25:9-35
+40        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+40-->[androidx.core:core:1.12.0] C:\Users\letti\.gradle\caches\transforms-3\d7c6a3018e6b26b10004e34cb885d4e5\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
+41        android:dataExtractionRules="@xml/data_extraction_rules"
+41-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:26:9-65
+42        android:debuggable="true"
+43        android:extractNativeLibs="false"
+44        android:fullBackupContent="@xml/backup_rules"
+44-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:27:9-54
+45        android:label="@string/app_name"
+45-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:28:9-41
+46        android:supportsRtl="true"
+46-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:29:9-35
+47        android:theme="@style/Theme.RoadPulse" >
+47-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:30:9-47
+48        <activity
+48-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:33:9-42:20
+49            android:name="com.roadpulse.android.MainActivity"
+49-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:34:13-41
+50            android:exported="true"
+50-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:35:13-36
+51            android:label="@string/app_name"
+51-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:36:13-45
+52            android:theme="@style/Theme.RoadPulse" >
+52-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:37:13-51
+53            <intent-filter>
+53-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:38:13-41:29
+54                <action android:name="android.intent.action.MAIN" />
+54-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:39:17-69
+54-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:39:25-66
+55
+56                <category android:name="android.intent.category.LAUNCHER" />
+56-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:40:17-77
+56-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:40:27-74
+57            </intent-filter>
+58        </activity>
+59
+60        <!-- Sensor monitoring foreground service -->
+61        <service
+61-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:45:9-49:56
+62            android:name="com.roadpulse.android.service.SensorMonitorService"
+62-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:46:13-57
+63            android:enabled="true"
+63-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:47:13-35
+64            android:exported="false"
+64-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:48:13-37
+65            android:foregroundServiceType="location" />
+65-->C:\misc\roadpulse\roadpulse-android\app\src\main\AndroidManifest.xml:49:13-53
+66
 67        <activity
-67-->[androidx.compose.ui:ui-test-manifest:1.5.4] C:\Users\letti\.gradle\caches\transforms-3\0021796b1c3af9cde33b8ed9df6007ba\transformed\ui-test-manifest-1.5.4\AndroidManifest.xml:23:9-25:39
-68            android:name="androidx.activity.ComponentActivity"
-68-->[androidx.compose.ui:ui-test-manifest:1.5.4] C:\Users\letti\.gradle\caches\transforms-3\0021796b1c3af9cde33b8ed9df6007ba\transformed\ui-test-manifest-1.5.4\AndroidManifest.xml:24:13-63
+67-->[androidx.compose.ui:ui-tooling-android:1.5.4] C:\Users\letti\.gradle\caches\transforms-3\be40021f824b8eaff422b3dfa7eba04b\transformed\ui-tooling-release\AndroidManifest.xml:23:9-25:39
+68            android:name="androidx.compose.ui.tooling.PreviewActivity"
+68-->[androidx.compose.ui:ui-tooling-android:1.5.4] C:\Users\letti\.gradle\caches\transforms-3\be40021f824b8eaff422b3dfa7eba04b\transformed\ui-tooling-release\AndroidManifest.xml:24:13-71
 69            android:exported="true" />
-69-->[androidx.compose.ui:ui-test-manifest:1.5.4] C:\Users\letti\.gradle\caches\transforms-3\0021796b1c3af9cde33b8ed9df6007ba\transformed\ui-test-manifest-1.5.4\AndroidManifest.xml:25:13-36
+69-->[androidx.compose.ui:ui-tooling-android:1.5.4] C:\Users\letti\.gradle\caches\transforms-3\be40021f824b8eaff422b3dfa7eba04b\transformed\ui-tooling-release\AndroidManifest.xml:25:13-36
 70        <activity
-70-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\letti\.gradle\caches\transforms-3\d5cb980dd913f687ae52bb45967378a6\transformed\play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
-71            android:name="com.google.android.gms.common.api.GoogleApiActivity"
-71-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\letti\.gradle\caches\transforms-3\d5cb980dd913f687ae52bb45967378a6\transformed\play-services-base-18.1.0\AndroidManifest.xml:20:19-85
-72            android:exported="false"
-72-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\letti\.gradle\caches\transforms-3\d5cb980dd913f687ae52bb45967378a6\transformed\play-services-base-18.1.0\AndroidManifest.xml:22:19-43
-73            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-73-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\letti\.gradle\caches\transforms-3\d5cb980dd913f687ae52bb45967378a6\transformed\play-services-base-18.1.0\AndroidManifest.xml:21:19-78
-74
-75        <provider
-75-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:29:9-37:20
-76            android:name="androidx.startup.InitializationProvider"
-76-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:30:13-67
-77            android:authorities="com.roadpulse.android.androidx-startup"
-77-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:31:13-68
-78            android:exported="false" >
-78-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:32:13-37
-79            <meta-data
-79-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:34:13-36:52
-80                android:name="androidx.work.WorkManagerInitializer"
-80-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:35:17-68
-81                android:value="androidx.startup" />
-81-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:36:17-49
+70-->[androidx.compose.ui:ui-test-manifest:1.5.4] C:\Users\letti\.gradle\caches\transforms-3\0021796b1c3af9cde33b8ed9df6007ba\transformed\ui-test-manifest-1.5.4\AndroidManifest.xml:23:9-25:39
+71            android:name="androidx.activity.ComponentActivity"
+71-->[androidx.compose.ui:ui-test-manifest:1.5.4] C:\Users\letti\.gradle\caches\transforms-3\0021796b1c3af9cde33b8ed9df6007ba\transformed\ui-test-manifest-1.5.4\AndroidManifest.xml:24:13-63
+72            android:exported="true" />
+72-->[androidx.compose.ui:ui-test-manifest:1.5.4] C:\Users\letti\.gradle\caches\transforms-3\0021796b1c3af9cde33b8ed9df6007ba\transformed\ui-test-manifest-1.5.4\AndroidManifest.xml:25:13-36
+73        <activity
+73-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\letti\.gradle\caches\transforms-3\d5cb980dd913f687ae52bb45967378a6\transformed\play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
+74            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+74-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\letti\.gradle\caches\transforms-3\d5cb980dd913f687ae52bb45967378a6\transformed\play-services-base-18.1.0\AndroidManifest.xml:20:19-85
+75            android:exported="false"
+75-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\letti\.gradle\caches\transforms-3\d5cb980dd913f687ae52bb45967378a6\transformed\play-services-base-18.1.0\AndroidManifest.xml:22:19-43
+76            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+76-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\letti\.gradle\caches\transforms-3\d5cb980dd913f687ae52bb45967378a6\transformed\play-services-base-18.1.0\AndroidManifest.xml:21:19-78
+77
+78        <provider
+78-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:29:9-37:20
+79            android:name="androidx.startup.InitializationProvider"
+79-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:30:13-67
+80            android:authorities="com.roadpulse.android.androidx-startup"
+80-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:31:13-68
+81            android:exported="false" >
+81-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:32:13-37
 82            <meta-data
-82-->[androidx.emoji2:emoji2:1.4.0] C:\Users\letti\.gradle\caches\transforms-3\b681952b8586a0322762269667ea015d\transformed\emoji2-1.4.0\AndroidManifest.xml:29:13-31:52
-83                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-83-->[androidx.emoji2:emoji2:1.4.0] C:\Users\letti\.gradle\caches\transforms-3\b681952b8586a0322762269667ea015d\transformed\emoji2-1.4.0\AndroidManifest.xml:30:17-75
+82-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:34:13-36:52
+83                android:name="androidx.work.WorkManagerInitializer"
+83-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:35:17-68
 84                android:value="androidx.startup" />
-84-->[androidx.emoji2:emoji2:1.4.0] C:\Users\letti\.gradle\caches\transforms-3\b681952b8586a0322762269667ea015d\transformed\emoji2-1.4.0\AndroidManifest.xml:31:17-49
+84-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:36:17-49
 85            <meta-data
-85-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\letti\.gradle\caches\transforms-3\fa6ce218424842d2d3eaf8d281c3f87f\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:29:13-31:52
-86                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-86-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\letti\.gradle\caches\transforms-3\fa6ce218424842d2d3eaf8d281c3f87f\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
+85-->[androidx.emoji2:emoji2:1.4.0] C:\Users\letti\.gradle\caches\transforms-3\b681952b8586a0322762269667ea015d\transformed\emoji2-1.4.0\AndroidManifest.xml:29:13-31:52
+86                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+86-->[androidx.emoji2:emoji2:1.4.0] C:\Users\letti\.gradle\caches\transforms-3\b681952b8586a0322762269667ea015d\transformed\emoji2-1.4.0\AndroidManifest.xml:30:17-75
 87                android:value="androidx.startup" />
-87-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\letti\.gradle\caches\transforms-3\fa6ce218424842d2d3eaf8d281c3f87f\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
+87-->[androidx.emoji2:emoji2:1.4.0] C:\Users\letti\.gradle\caches\transforms-3\b681952b8586a0322762269667ea015d\transformed\emoji2-1.4.0\AndroidManifest.xml:31:17-49
 88            <meta-data
-88-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
-89                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-89-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+88-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\letti\.gradle\caches\transforms-3\fa6ce218424842d2d3eaf8d281c3f87f\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:29:13-31:52
+89                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+89-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\letti\.gradle\caches\transforms-3\fa6ce218424842d2d3eaf8d281c3f87f\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:30:17-78
 90                android:value="androidx.startup" />
-90-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
-91        </provider>
-92
-93        <service
-93-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:39:9-45:35
-94            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
-94-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:40:13-88
-95            android:directBootAware="false"
-95-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:41:13-44
-96            android:enabled="@bool/enable_system_alarm_service_default"
-96-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:42:13-72
-97            android:exported="false" />
-97-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:43:13-37
-98        <service
-98-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:46:9-52:35
-99            android:name="androidx.work.impl.background.systemjob.SystemJobService"
-99-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:47:13-84
-100            android:directBootAware="false"
-100-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:48:13-44
-101            android:enabled="@bool/enable_system_job_service_default"
-101-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:49:13-70
-102            android:exported="true"
-102-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:50:13-36
-103            android:permission="android.permission.BIND_JOB_SERVICE" />
-103-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:51:13-69
-104        <service
-104-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:53:9-59:35
-105            android:name="androidx.work.impl.foreground.SystemForegroundService"
-105-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:54:13-81
-106            android:directBootAware="false"
-106-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:55:13-44
-107            android:enabled="@bool/enable_system_foreground_service_default"
-107-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:56:13-77
-108            android:exported="false" />
-108-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:57:13-37
-109
-110        <receiver
-110-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:61:9-66:35
-111            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
-111-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:62:13-88
-112            android:directBootAware="false"
-112-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:63:13-44
-113            android:enabled="true"
-113-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:64:13-35
-114            android:exported="false" />
-114-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:65:13-37
-115        <receiver
-115-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:67:9-77:20
-116            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
-116-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:68:13-106
-117            android:directBootAware="false"
-117-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:69:13-44
-118            android:enabled="false"
-118-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:70:13-36
-119            android:exported="false" >
-119-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:71:13-37
-120            <intent-filter>
-120-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:73:13-76:29
-121                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-121-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:74:17-87
-121-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:74:25-84
-122                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
-122-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:75:17-90
-122-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:75:25-87
-123            </intent-filter>
-124        </receiver>
-125        <receiver
-125-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:78:9-88:20
-126            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
-126-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:79:13-104
-127            android:directBootAware="false"
-127-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:80:13-44
-128            android:enabled="false"
-128-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:81:13-36
-129            android:exported="false" >
-129-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:82:13-37
-130            <intent-filter>
-130-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:84:13-87:29
-131                <action android:name="android.intent.action.BATTERY_OKAY" />
-131-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:85:17-77
-131-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:85:25-74
-132                <action android:name="android.intent.action.BATTERY_LOW" />
-132-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:86:17-76
-132-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:86:25-73
-133            </intent-filter>
-134        </receiver>
-135        <receiver
-135-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:89:9-99:20
-136            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
-136-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:90:13-104
-137            android:directBootAware="false"
-137-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:91:13-44
-138            android:enabled="false"
-138-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:92:13-36
-139            android:exported="false" >
-139-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:93:13-37
-140            <intent-filter>
-140-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:95:13-98:29
-141                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
-141-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:96:17-83
-141-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:96:25-80
-142                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
-142-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:97:17-82
-142-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:97:25-79
-143            </intent-filter>
-144        </receiver>
-145        <receiver
-145-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:100:9-109:20
-146            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
-146-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:101:13-103
-147            android:directBootAware="false"
-147-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:102:13-44
-148            android:enabled="false"
-148-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:103:13-36
-149            android:exported="false" >
-149-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:104:13-37
-150            <intent-filter>
-150-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:106:13-108:29
-151                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-151-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:107:17-79
-151-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:107:25-76
-152            </intent-filter>
-153        </receiver>
-154        <receiver
-154-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:110:9-121:20
-155            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
-155-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:111:13-88
-156            android:directBootAware="false"
-156-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:112:13-44
-157            android:enabled="false"
-157-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:113:13-36
-158            android:exported="false" >
-158-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:114:13-37
-159            <intent-filter>
-159-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:116:13-120:29
-160                <action android:name="android.intent.action.BOOT_COMPLETED" />
-160-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:117:17-79
-160-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:117:25-76
-161                <action android:name="android.intent.action.TIME_SET" />
-161-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:118:17-73
-161-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:118:25-70
-162                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
-162-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:119:17-81
-162-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:119:25-78
-163            </intent-filter>
-164        </receiver>
-165        <receiver
-165-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:122:9-131:20
-166            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
-166-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:123:13-99
-167            android:directBootAware="false"
-167-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:124:13-44
-168            android:enabled="@bool/enable_system_alarm_service_default"
-168-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:125:13-72
-169            android:exported="false" >
-169-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:126:13-37
-170            <intent-filter>
-170-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:128:13-130:29
-171                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
-171-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:129:17-98
-171-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:129:25-95
-172            </intent-filter>
-173        </receiver>
-174        <receiver
-174-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:132:9-142:20
-175            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
-175-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:133:13-78
-176            android:directBootAware="false"
-176-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:134:13-44
-177            android:enabled="true"
-177-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:135:13-35
-178            android:exported="true"
-178-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:136:13-36
-179            android:permission="android.permission.DUMP" >
-179-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:137:13-57
-180            <intent-filter>
-180-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:139:13-141:29
-181                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
-181-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:140:17-88
-181-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:140:25-85
-182            </intent-filter>
-183        </receiver>
-184
-185        <service
-185-->[androidx.room:room-runtime:2.6.1] C:\Users\letti\.gradle\caches\transforms-3\f4d3303f98f43409f053bcfb79799367\transformed\room-runtime-2.6.1\AndroidManifest.xml:24:9-28:63
-186            android:name="androidx.room.MultiInstanceInvalidationService"
-186-->[androidx.room:room-runtime:2.6.1] C:\Users\letti\.gradle\caches\transforms-3\f4d3303f98f43409f053bcfb79799367\transformed\room-runtime-2.6.1\AndroidManifest.xml:25:13-74
-187            android:directBootAware="true"
-187-->[androidx.room:room-runtime:2.6.1] C:\Users\letti\.gradle\caches\transforms-3\f4d3303f98f43409f053bcfb79799367\transformed\room-runtime-2.6.1\AndroidManifest.xml:26:13-43
-188            android:exported="false" />
-188-->[androidx.room:room-runtime:2.6.1] C:\Users\letti\.gradle\caches\transforms-3\f4d3303f98f43409f053bcfb79799367\transformed\room-runtime-2.6.1\AndroidManifest.xml:27:13-37
-189
-190        <meta-data
-190-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\letti\.gradle\caches\transforms-3\15ab53f5c1a5252bc1e72101a2da6530\transformed\play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
-191            android:name="com.google.android.gms.version"
-191-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\letti\.gradle\caches\transforms-3\15ab53f5c1a5252bc1e72101a2da6530\transformed\play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
-192            android:value="@integer/google_play_services_version" />
-192-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\letti\.gradle\caches\transforms-3\15ab53f5c1a5252bc1e72101a2da6530\transformed\play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
-193
-194        <receiver
-194-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
-195            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-195-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
-196            android:directBootAware="false"
-196-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
-197            android:enabled="true"
-197-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
-198            android:exported="true"
-198-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
-199            android:permission="android.permission.DUMP" >
-199-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
-200            <intent-filter>
-200-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
-201                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-201-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
-201-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
-202            </intent-filter>
+90-->[androidx.lifecycle:lifecycle-process:2.7.0] C:\Users\letti\.gradle\caches\transforms-3\fa6ce218424842d2d3eaf8d281c3f87f\transformed\lifecycle-process-2.7.0\AndroidManifest.xml:31:17-49
+91            <meta-data
+91-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+92                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+92-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+93                android:value="androidx.startup" />
+93-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+94        </provider>
+95
+96        <service
+96-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:39:9-45:35
+97            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+97-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:40:13-88
+98            android:directBootAware="false"
+98-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:41:13-44
+99            android:enabled="@bool/enable_system_alarm_service_default"
+99-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:42:13-72
+100            android:exported="false" />
+100-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:43:13-37
+101        <service
+101-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:46:9-52:35
+102            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+102-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:47:13-84
+103            android:directBootAware="false"
+103-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:48:13-44
+104            android:enabled="@bool/enable_system_job_service_default"
+104-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:49:13-70
+105            android:exported="true"
+105-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:50:13-36
+106            android:permission="android.permission.BIND_JOB_SERVICE" />
+106-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:51:13-69
+107        <service
+107-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:53:9-59:35
+108            android:name="androidx.work.impl.foreground.SystemForegroundService"
+108-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:54:13-81
+109            android:directBootAware="false"
+109-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:55:13-44
+110            android:enabled="@bool/enable_system_foreground_service_default"
+110-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:56:13-77
+111            android:exported="false" />
+111-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:57:13-37
+112
+113        <receiver
+113-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:61:9-66:35
+114            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+114-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:62:13-88
+115            android:directBootAware="false"
+115-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:63:13-44
+116            android:enabled="true"
+116-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:64:13-35
+117            android:exported="false" />
+117-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:65:13-37
+118        <receiver
+118-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:67:9-77:20
+119            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+119-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:68:13-106
+120            android:directBootAware="false"
+120-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:69:13-44
+121            android:enabled="false"
+121-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:70:13-36
+122            android:exported="false" >
+122-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:71:13-37
+123            <intent-filter>
+123-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:73:13-76:29
+124                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+124-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:74:17-87
+124-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:74:25-84
+125                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+125-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:75:17-90
+125-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:75:25-87
+126            </intent-filter>
+127        </receiver>
+128        <receiver
+128-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:78:9-88:20
+129            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+129-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:79:13-104
+130            android:directBootAware="false"
+130-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:80:13-44
+131            android:enabled="false"
+131-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:81:13-36
+132            android:exported="false" >
+132-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:82:13-37
+133            <intent-filter>
+133-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:84:13-87:29
+134                <action android:name="android.intent.action.BATTERY_OKAY" />
+134-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:85:17-77
+134-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:85:25-74
+135                <action android:name="android.intent.action.BATTERY_LOW" />
+135-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:86:17-76
+135-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:86:25-73
+136            </intent-filter>
+137        </receiver>
+138        <receiver
+138-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:89:9-99:20
+139            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+139-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:90:13-104
+140            android:directBootAware="false"
+140-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:91:13-44
+141            android:enabled="false"
+141-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:92:13-36
+142            android:exported="false" >
+142-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:93:13-37
+143            <intent-filter>
+143-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:95:13-98:29
+144                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+144-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:96:17-83
+144-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:96:25-80
+145                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+145-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:97:17-82
+145-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:97:25-79
+146            </intent-filter>
+147        </receiver>
+148        <receiver
+148-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:100:9-109:20
+149            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+149-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:101:13-103
+150            android:directBootAware="false"
+150-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:102:13-44
+151            android:enabled="false"
+151-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:103:13-36
+152            android:exported="false" >
+152-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:104:13-37
+153            <intent-filter>
+153-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:106:13-108:29
+154                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+154-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:107:17-79
+154-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:107:25-76
+155            </intent-filter>
+156        </receiver>
+157        <receiver
+157-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:110:9-121:20
+158            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+158-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:111:13-88
+159            android:directBootAware="false"
+159-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:112:13-44
+160            android:enabled="false"
+160-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:113:13-36
+161            android:exported="false" >
+161-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:114:13-37
+162            <intent-filter>
+162-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:116:13-120:29
+163                <action android:name="android.intent.action.BOOT_COMPLETED" />
+163-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:117:17-79
+163-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:117:25-76
+164                <action android:name="android.intent.action.TIME_SET" />
+164-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:118:17-73
+164-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:118:25-70
+165                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+165-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:119:17-81
+165-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:119:25-78
+166            </intent-filter>
+167        </receiver>
+168        <receiver
+168-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:122:9-131:20
+169            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+169-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:123:13-99
+170            android:directBootAware="false"
+170-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:124:13-44
+171            android:enabled="@bool/enable_system_alarm_service_default"
+171-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:125:13-72
+172            android:exported="false" >
+172-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:126:13-37
+173            <intent-filter>
+173-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:128:13-130:29
+174                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+174-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:129:17-98
+174-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:129:25-95
+175            </intent-filter>
+176        </receiver>
+177        <receiver
+177-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:132:9-142:20
+178            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
+178-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:133:13-78
+179            android:directBootAware="false"
+179-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:134:13-44
+180            android:enabled="true"
+180-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:135:13-35
+181            android:exported="true"
+181-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:136:13-36
+182            android:permission="android.permission.DUMP" >
+182-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:137:13-57
+183            <intent-filter>
+183-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:139:13-141:29
+184                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
+184-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:140:17-88
+184-->[androidx.work:work-runtime:2.9.0] C:\Users\letti\.gradle\caches\transforms-3\be38dda1a98754c16c1581739e9eceee\transformed\work-runtime-2.9.0\AndroidManifest.xml:140:25-85
+185            </intent-filter>
+186        </receiver>
+187
+188        <service
+188-->[androidx.room:room-runtime:2.6.1] C:\Users\letti\.gradle\caches\transforms-3\f4d3303f98f43409f053bcfb79799367\transformed\room-runtime-2.6.1\AndroidManifest.xml:24:9-28:63
+189            android:name="androidx.room.MultiInstanceInvalidationService"
+189-->[androidx.room:room-runtime:2.6.1] C:\Users\letti\.gradle\caches\transforms-3\f4d3303f98f43409f053bcfb79799367\transformed\room-runtime-2.6.1\AndroidManifest.xml:25:13-74
+190            android:directBootAware="true"
+190-->[androidx.room:room-runtime:2.6.1] C:\Users\letti\.gradle\caches\transforms-3\f4d3303f98f43409f053bcfb79799367\transformed\room-runtime-2.6.1\AndroidManifest.xml:26:13-43
+191            android:exported="false" />
+191-->[androidx.room:room-runtime:2.6.1] C:\Users\letti\.gradle\caches\transforms-3\f4d3303f98f43409f053bcfb79799367\transformed\room-runtime-2.6.1\AndroidManifest.xml:27:13-37
+192
+193        <meta-data
+193-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\letti\.gradle\caches\transforms-3\15ab53f5c1a5252bc1e72101a2da6530\transformed\play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
+194            android:name="com.google.android.gms.version"
+194-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\letti\.gradle\caches\transforms-3\15ab53f5c1a5252bc1e72101a2da6530\transformed\play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
+195            android:value="@integer/google_play_services_version" />
+195-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\letti\.gradle\caches\transforms-3\15ab53f5c1a5252bc1e72101a2da6530\transformed\play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
+196
+197        <receiver
+197-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+198            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+198-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+199            android:directBootAware="false"
+199-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+200            android:enabled="true"
+200-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+201            android:exported="true"
+201-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+202            android:permission="android.permission.DUMP" >
+202-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
 203            <intent-filter>
-203-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
-204                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-204-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
-204-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+203-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+204                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+204-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+204-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
 205            </intent-filter>
 206            <intent-filter>
-206-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
-207                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-207-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
-207-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+206-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+207                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+207-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+207-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
 208            </intent-filter>
 209            <intent-filter>
-209-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
-210                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-210-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
-210-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+209-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+210                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+210-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+210-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
 211            </intent-filter>
-212        </receiver>
-213    </application>
-214
-215</manifest>
+212            <intent-filter>
+212-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+213                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+213-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+213-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\letti\.gradle\caches\transforms-3\39eae5540a5fdd06161d6e5fe38f83fb\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+214            </intent-filter>
+215        </receiver>
+216    </application>
+217
+218</manifest>

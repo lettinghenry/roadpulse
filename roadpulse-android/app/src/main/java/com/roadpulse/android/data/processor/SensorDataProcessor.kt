@@ -50,6 +50,10 @@ class SensorDataProcessor @Inject constructor() {
     private val stationaryThreshold = 0.5f // m/s² for stationary detection
     private val orientationChangeThreshold = 2.0f // rad/s for device handling detection
     
+    // Device handling suppression (Requirements 8.2)
+    private val deviceHandlingSuppresionDurationMs = 3000L // 3 seconds
+    private var lastDeviceHandlingTime = 0L
+    
     /**
      * Processes raw sensor data with filtering and calibration
      */
@@ -127,9 +131,20 @@ class SensorDataProcessor @Inject constructor() {
     
     /**
      * Checks if device is experiencing rapid orientation changes (device handling)
+     * Requirements 8.2: Device handling spike suppression for 3 seconds
      */
     fun isDeviceHandling(gyroData: GyroscopeData): Boolean {
-        return gyroData.magnitude() > orientationChangeThreshold
+        val currentTime = System.currentTimeMillis()
+        val isCurrentlyHandling = gyroData.magnitude() > orientationChangeThreshold
+        
+        if (isCurrentlyHandling) {
+            lastDeviceHandlingTime = currentTime
+            return true
+        }
+        
+        // Check if we're still in the suppression period after device handling
+        val timeSinceLastHandling = currentTime - lastDeviceHandlingTime
+        return timeSinceLastHandling < deviceHandlingSuppresionDurationMs
     }
     
     /**

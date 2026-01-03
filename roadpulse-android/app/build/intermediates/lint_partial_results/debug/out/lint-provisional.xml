@@ -10,20 +10,119 @@
             replacement="">
             <range
                 file="${:app*debug*MAIN*sourceProvider*0*manifest*0}"
-                startOffset="1276"
-                endOffset="1296"/>
+                startOffset="1415"
+                endOffset="1435"/>
         </fix-replace>
         <location
             file="${:app*debug*MAIN*sourceProvider*0*manifest*0}"
-            line="28"
+            line="31"
             column="9"
-            startOffset="1276"
-            endLine="28"
+            startOffset="1415"
+            endLine="31"
             endColumn="29"
-            endOffset="1296"/>
+            endOffset="1435"/>
         <map>
             <condition minGE="ffffffffc0000000"/>
         </map>
+    </incident>
+
+    <incident
+        id="VectorRaster"
+        severity="warning"
+        message="">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/drawable/ic_notification.xml"
+            line="7"
+            column="19"
+            startOffset="244"
+            endLine="7"
+            endColumn="39"
+            endOffset="264"/>
+        <map>
+            <entry
+                name="folderVersion"
+                int="-1"/>
+            <entry
+                name="containsFillType"
+                boolean="false"/>
+            <entry
+                name="message"
+                string="Resource references will not work correctly in images generated for this vector icon for API &lt; %1$d; check generated icon to make sure it looks acceptable"/>
+            <entry
+                name="containsGradient"
+                boolean="false"/>
+        </map>
+    </incident>
+
+    <incident
+        id="VectorRaster"
+        severity="warning"
+        message="">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/drawable/ic_notification.xml"
+            line="11"
+            column="28"
+            startOffset="354"
+            endLine="11"
+            endColumn="48"
+            endOffset="374"/>
+        <map>
+            <entry
+                name="folderVersion"
+                int="-1"/>
+            <entry
+                name="containsFillType"
+                boolean="false"/>
+            <entry
+                name="message"
+                string="Resource references will not work correctly in images generated for this vector icon for API &lt; %1$d; check generated icon to make sure it looks acceptable"/>
+            <entry
+                name="containsGradient"
+                boolean="false"/>
+        </map>
+    </incident>
+
+    <incident
+        id="VectorRaster"
+        severity="warning"
+        message="">
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*resDir*0}/drawable/ic_notification.xml"
+            line="16"
+            column="28"
+            startOffset="629"
+            endLine="16"
+            endColumn="48"
+            endOffset="649"/>
+        <map>
+            <entry
+                name="folderVersion"
+                int="-1"/>
+            <entry
+                name="containsFillType"
+                boolean="false"/>
+            <entry
+                name="message"
+                string="Resource references will not work correctly in images generated for this vector icon for API &lt; %1$d; check generated icon to make sure it looks acceptable"/>
+            <entry
+                name="containsGradient"
+                boolean="false"/>
+        </map>
+    </incident>
+
+    <incident
+        id="NotificationPermission"
+        severity="error"
+        message="When targeting Android 13 or higher, posting a permission requires holding the `POST_NOTIFICATIONS` permission">
+        <fix-data missing="android.permission.POST_NOTIFICATIONS"/>
+        <location
+            file="${:app*debug*MAIN*sourceProvider*0*javaDir*0}/com/roadpulse/android/service/SensorMonitorService.kt"
+            line="552"
+            column="9"
+            startOffset="18799"
+            endLine="552"
+            endColumn="66"
+            endOffset="18856"/>
     </incident>
 
 </incidents>

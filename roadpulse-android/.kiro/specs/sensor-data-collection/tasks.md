@@ -82,21 +82,22 @@ This implementation plan breaks down the sensor data collection feature into dis
     - **Property 13: Confidence Score Calculation**
     - **Validates: Requirements 4.7**
 
-- [ ] 4. Checkpoint - Core detection logic validation
+- [x] 4. Checkpoint - Core detection logic validation
   - Ensure all tests pass, ask the user if questions arise.
 
-- [ ] 5. Implement data storage and session management
-  - [ ] 5.1 Create EventRepository with Room database operations
+- [x] 5. Implement data storage and session management
+  - [x] 5.1 Create EventRepository with Room database operations
     - Implement event storage with UUID generation
     - Add database cleanup for storage limit management
     - Create queries for unsynced events and session-based retrieval
     - _Requirements: 5.1, 5.6_
 
-  - [ ]* 5.2 Write property test for database cleanup
+  - [ ] 5.2 Write property test for database cleanup
+
     - **Property 16: Database Cleanup on Storage Limit**
     - **Validates: Requirements 5.6**
 
-  - [ ] 5.3 Implement session management logic
+  - [x] 5.3 Implement session management logic
     - Create session UUID generation and lifecycle management
     - Add session timeout detection (5-minute inactivity)
     - Implement event-session association
@@ -114,8 +115,8 @@ This implementation plan breaks down the sensor data collection feature into dis
     - **Property 19: Event-Session Association**
     - **Validates: Requirements 6.4**
 
-- [ ] 6. Implement sensor monitoring service
-  - [ ] 6.1 Create SensorMonitorService as foreground service
+- [x] 6. Implement sensor monitoring service
+  - [x] 6.1 Create SensorMonitorService as foreground service
     - Set up foreground service with location service type
     - Implement sensor listener registration and management
     - Add service lifecycle management (start/stop/pause/resume)
@@ -130,7 +131,7 @@ This implementation plan breaks down the sensor data collection feature into dis
     - **Property 4: Background Operation Persistence**
     - **Validates: Requirements 1.5**
 
-  - [ ] 6.4 Implement adaptive sampling rate management
+  - [x] 6.4 Implement adaptive sampling rate management
     - Add motion detection for sampling rate adjustment
     - Implement 50Hz normal rate and 10Hz reduced rate
     - Add charging detection for sampling rate override
@@ -149,8 +150,8 @@ This implementation plan breaks down the sensor data collection feature into dis
     - **Property 2: GPS Update Frequency**
     - **Validates: Requirements 1.3**
 
-- [ ] 7. Implement battery optimization and data quality features
-  - [ ] 7.1 Add battery level monitoring and auto-pause
+- [x] 7. Implement battery optimization and data quality features
+  - [x] 7.1 Add battery level monitoring and auto-pause
     - Implement battery level detection (15% pause, 20% resume)
     - Add automatic data collection pause/resume logic
     - _Requirements: 7.4, 7.5_
@@ -159,7 +160,7 @@ This implementation plan breaks down the sensor data collection feature into dis
     - **Property 22: Battery Level Data Collection Control**
     - **Validates: Requirements 7.4, 7.5**
 
-  - [ ] 7.3 Implement data quality assurance filters
+  - [x] 7.3 Implement data quality assurance filters
     - Add GPS accuracy filtering (20-meter threshold)
     - Implement device handling detection and spike suppression
     - Add vehicle orientation detection for event pausing
