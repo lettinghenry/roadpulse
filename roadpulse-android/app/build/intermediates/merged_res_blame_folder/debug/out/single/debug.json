@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.roadpulse.android.app-merged_res-57:/xml_data_extraction_rules.xml.flat",
+        "source": "com.roadpulse.android.app-main-59:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.roadpulse.android.app-merged_res-57:/xml_backup_rules.xml.flat",
+        "source": "com.roadpulse.android.app-main-59:/xml/backup_rules.xml"
+    }
+]
