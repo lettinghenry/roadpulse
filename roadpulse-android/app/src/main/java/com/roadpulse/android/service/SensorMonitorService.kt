@@ -19,13 +19,25 @@ import androidx.core.app.NotificationCompat
 import com.roadpulse.android.MainActivity
 import com.roadpulse.android.R
 import com.roadpulse.android.data.detector.EventDetector
+import com.roadpulse.android.data.classifier.EventClassifier
+import com.roadpulse.android.data.repository.EventRepository
 import com.roadpulse.android.data.model.AccelerometerData
 import com.roadpulse.android.data.model.GyroscopeData
 import com.roadpulse.android.data.model.SensorData
+import com.roadpulse.android.data.model.RoadAnomalyEvent
 import com.roadpulse.android.data.processor.MotionState
 import com.roadpulse.android.data.processor.SensorDataProcessor
 import com.roadpulse.android.data.provider.LocationProvider
 import com.roadpulse.android.data.session.SessionManager
+import com.roadpulse.android.data.error.ErrorHandler
+import com.roadpulse.android.data.error.ErrorRecoveryResult
+import com.roadpulse.android.data.error.SensorDataException
+import com.roadpulse.android.data.error.SensorUnavailableException
+import com.roadpulse.android.data.error.SensorPermissionDeniedException
+import com.roadpulse.android.data.error.SensorCalibrationException
+import com.roadpulse.android.data.monitor.SystemResourceMonitor
+import com.roadpulse.android.data.config.SensorMonitorConfig
+import com.roadpulse.android.service.ServiceState
 import com.roadpulse.android.di.DefaultDispatcher
 import com.roadpulse.android.di.IoDispatcher
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,17 +68,17 @@ class SensorMonitorService : Service(), SensorEventListener {
         private const val CHANNEL_ID = "sensor_monitoring_channel"
         private const val CHANNEL_NAME = "Sensor Monitoring"
         
-        // Sampling rates in microseconds
-        private const val NORMAL_SAMPLING_RATE = 20_000 // 50Hz (1/50 * 1,000,000)
-        private const val REDUCED_SAMPLING_RATE = 100_000 // 10Hz (1/10 * 1,000,000)
+        // Sampling rates in microseconds - now using config
+        private const val DEFAULT_NORMAL_SAMPLING_RATE = 20_000 // 50Hz (1/50 * 1,000,000)
+        private const val DEFAULT_REDUCED_SAMPLING_RATE = 100_000 // 10Hz (1/10 * 1,000,000)
         
-        // Battery thresholds
-        private const val BATTERY_PAUSE_THRESHOLD = 15
-        private const val BATTERY_RESUME_THRESHOLD = 20
+        // Battery thresholds - now using config
+        private const val DEFAULT_BATTERY_PAUSE_THRESHOLD = 15
+        private const val DEFAULT_BATTERY_RESUME_THRESHOLD = 20
         
-        // Motion detection timing
-        private const val STATIONARY_TIMEOUT_MS = 10 * 60 * 1000L // 10 minutes
-        private const val SAMPLING_RATE_TRANSITION_DELAY_MS = 2000L // 2 seconds
+        // Motion detection timing - now using config
+        private const val DEFAULT_STATIONARY_TIMEOUT_MS = 10 * 60 * 1000L // 10 minutes
+        private const val DEFAULT_SAMPLING_RATE_TRANSITION_DELAY_MS = 2000L // 2 seconds
     }
     
     @Inject
@@ -76,10 +88,28 @@ class SensorMonitorService : Service(), SensorEventListener {
     lateinit var eventDetector: EventDetector
     
     @Inject
+    lateinit var eventClassifier: EventClassifier
+    
+    @Inject
+    lateinit var eventRepository: EventRepository
+    
+    @Inject
     lateinit var locationProvider: LocationProvider
     
     @Inject
     lateinit var sessionManager: SessionManager
+    
+    @Inject
+    lateinit var errorHandler: ErrorHandler
+    
+    @Inject
+    lateinit var systemResourceMonitor: SystemResourceMonitor
+    
+    @Inject
+    lateinit var config: SensorMonitorConfig
+    
+    @Inject
+    lateinit var controller: SensorMonitorController
     
     @Inject
     @IoDispatcher
@@ -103,13 +133,18 @@ class SensorMonitorService : Service(), SensorEventListener {
     private val stateMutex = Mutex()
     private var isMonitoring = false
     private var isPaused = false
-    private var currentSamplingRate = NORMAL_SAMPLING_RATE
+    private var currentSamplingRate = DEFAULT_NORMAL_SAMPLING_RATE
+    private var isDegradedMode = false
+    private var lastErrorTime = 0L
+    private var consecutiveErrors = 0
     
     // Coroutine management
     private val serviceScope = CoroutineScope(ioDispatcher)
     private var monitoringJob: Job? = null
     private var batteryMonitoringJob: Job? = null
     private var adaptiveSamplingJob: Job? = null
+    private var resourceMonitoringJob: Job? = null
+    private var errorRecoveryJob: Job? = null
     
     // Wake lock for background operation
     private var wakeLock: PowerManager.WakeLock? = null
@@ -119,27 +154,37 @@ class SensorMonitorService : Service(), SensorEventListener {
     private var latestGyroscopeData: GyroscopeData? = null
     private var lastSensorDataTimestamp = 0L
     
+    // Event processing statistics
+    private var eventsDetected = 0
+    private var eventsClassified = 0
+    private var eventsStored = 0
+    private var lastStatsUpdateTime = 0L
+    
     override fun onCreate() {
         super.onCreate()
         
-        // Initialize system services
-        sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
-        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
-        batteryManager = getSystemService(Context.BATTERY_SERVICE) as BatteryManager
-        
-        // Initialize sensors
-        accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
-        gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
-        
-        // Create notification channel
-        createNotificationChannel()
-        
-        // Acquire wake lock for background operation
-        wakeLock = powerManager.newWakeLock(
-            PowerManager.PARTIAL_WAKE_LOCK,
-            "RoadPulse::SensorMonitoring"
-        )
+        try {
+            // Initialize system services
+            sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+            notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+            batteryManager = getSystemService(Context.BATTERY_SERVICE) as BatteryManager
+            
+            // Initialize sensors with error handling
+            initializeSensors()
+            
+            // Create notification channel
+            createNotificationChannel()
+            
+            // Acquire wake lock for background operation
+            wakeLock = powerManager.newWakeLock(
+                PowerManager.PARTIAL_WAKE_LOCK,
+                "RoadPulse::SensorMonitoring"
+            )
+        } catch (e: Exception) {
+            errorHandler.logError(e, "Service onCreate")
+            // Continue with degraded functionality
+        }
     }
     
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -165,36 +210,83 @@ class SensorMonitorService : Service(), SensorEventListener {
     }
     
     /**
-     * Start sensor monitoring with foreground service
+     * Initialize sensors with error handling
+     */
+    private fun initializeSensors() {
+        try {
+            accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+            if (accelerometer == null) {
+                errorHandler.logError(
+                    SensorUnavailableException("accelerometer"),
+                    "Sensor initialization"
+                )
+            }
+        } catch (e: Exception) {
+            errorHandler.logError(e, "Accelerometer initialization")
+        }
+        
+        try {
+            gyroscope = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE)
+            if (gyroscope == null) {
+                errorHandler.logError(
+                    SensorUnavailableException("gyroscope"),
+                    "Sensor initialization"
+                )
+            }
+        } catch (e: Exception) {
+            errorHandler.logError(e, "Gyroscope initialization")
+        }
+    }
+    
+    /**
+     * Start sensor monitoring with comprehensive error handling
      */
     private fun startMonitoring() {
         serviceScope.launch {
-            stateMutex.withLock {
-                if (isMonitoring) return@withLock
-                
-                // Start foreground service with notification
-                startForeground(NOTIFICATION_ID, createNotification("Starting sensor monitoring..."))
-                
-                // Acquire wake lock
-                wakeLock?.acquire()
-                
-                // Start session
-                sessionManager.startSession()
-                
-                // Register sensor listeners
-                registerSensorListeners()
-                
-                // Start location provider
-                locationProvider.startLocationUpdates()
-                
-                // Start monitoring jobs
-                startMonitoringJobs()
-                
-                isMonitoring = true
-                isPaused = false
-                
-                // Update notification
-                updateNotification("Monitoring road conditions")
+            try {
+                stateMutex.withLock {
+                    if (isMonitoring) return@withLock
+                    
+                    // Check system resources before starting
+                    systemResourceMonitor.checkResourceConstraints()
+                    
+                    // Start foreground service with notification
+                    startForeground(NOTIFICATION_ID, createNotification("Starting sensor monitoring..."))
+                    
+                    // Acquire wake lock
+                    wakeLock?.acquire()
+                    
+                    // Start session
+                    val sessionId = sessionManager.startSession()
+                    
+                    // Reset event processing statistics for new session
+                    resetEventProcessingStats()
+                    
+                    // Register sensor listeners with error handling
+                    registerSensorListenersWithErrorHandling()
+                    
+                    // Start location provider with error handling
+                    startLocationProviderWithErrorHandling()
+                    
+                    // Start monitoring jobs
+                    startMonitoringJobs()
+                    
+                    isMonitoring = true
+                    isPaused = false
+                    consecutiveErrors = 0
+                    
+                    // Notify controller of state change
+                    controller.updateServiceState(ServiceState.RUNNING)
+                    
+                    // Update notification with session info
+                    val mode = if (isDegradedMode) " (Degraded Mode)" else ""
+                    updateNotification("Monitoring road conditions$mode - Session: ${sessionId.take(8)}")
+                }
+            } catch (e: SensorDataException) {
+                handleStartupError(e)
+            } catch (e: Exception) {
+                errorHandler.logError(e, "Start monitoring")
+                handleStartupError(SensorUnavailableException("Unexpected error during startup", e))
             }
         }
     }
@@ -225,6 +317,9 @@ class SensorMonitorService : Service(), SensorEventListener {
                 isMonitoring = false
                 isPaused = false
                 
+                // Notify controller of state change
+                controller.updateServiceState(ServiceState.STOPPED)
+                
                 // Stop foreground service
                 stopForeground(STOP_FOREGROUND_REMOVE)
                 stopSelf()
@@ -246,6 +341,9 @@ class SensorMonitorService : Service(), SensorEventListener {
                 
                 isPaused = true
                 
+                // Notify controller of state change
+                controller.updateServiceState(ServiceState.PAUSED)
+                
                 // Update notification
                 updateNotification("Monitoring paused")
             }
@@ -265,12 +363,15 @@ class SensorMonitorService : Service(), SensorEventListener {
                 locationProvider.startLocationUpdates()
                 
                 // Start new session
-                sessionManager.startSession()
+                val sessionId = sessionManager.startSession()
                 
                 isPaused = false
                 
-                // Update notification
-                updateNotification("Monitoring road conditions")
+                // Notify controller of state change
+                controller.updateServiceState(ServiceState.RUNNING)
+                
+                // Update notification with session info
+                updateNotification("Monitoring resumed - Session: ${sessionId.take(8)}")
             }
         }
     }
@@ -296,93 +397,347 @@ class SensorMonitorService : Service(), SensorEventListener {
     }
     
     /**
-     * Start background monitoring jobs
+     * Start background monitoring jobs with error handling
      */
     private fun startMonitoringJobs() {
         // Battery monitoring job
         batteryMonitoringJob = serviceScope.launch {
             while (isMonitoring) {
-                monitorBatteryLevel()
-                delay(30_000) // Check every 30 seconds
+                try {
+                    monitorBatteryLevel()
+                    delay(30_000) // Check every 30 seconds
+                } catch (e: Exception) {
+                    errorHandler.logError(e, "Battery monitoring")
+                    delay(60_000) // Longer delay on error
+                }
             }
         }
         
         // Adaptive sampling job
         adaptiveSamplingJob = serviceScope.launch {
-            sensorDataProcessor.motionState.collect { motionState ->
-                handleMotionStateChange(motionState)
+            try {
+                sensorDataProcessor.motionState.collect { motionState ->
+                    handleMotionStateChange(motionState)
+                }
+            } catch (e: Exception) {
+                errorHandler.logError(e, "Adaptive sampling")
+            }
+        }
+        
+        // Resource monitoring job
+        resourceMonitoringJob = serviceScope.launch {
+            while (isMonitoring) {
+                try {
+                    systemResourceMonitor.checkResourceConstraints()
+                    delay(60_000) // Check every minute
+                } catch (e: SensorDataException) {
+                    handleResourceConstraintError(e)
+                    delay(120_000) // Longer delay after resource error
+                } catch (e: Exception) {
+                    errorHandler.logError(e, "Resource monitoring")
+                    delay(120_000)
+                }
             }
         }
     }
     
     /**
-     * Stop all background monitoring jobs
+     * Handle startup errors with recovery strategies
+     */
+    private suspend fun handleStartupError(error: SensorDataException) {
+        val recoveryResult = errorHandler.handleSensorError(error)
+        
+        when (recoveryResult) {
+            ErrorRecoveryResult.DEGRADED_MODE -> {
+                isDegradedMode = true
+                // Continue with limited functionality
+                startMonitoringInDegradedMode()
+            }
+            ErrorRecoveryResult.PAUSE_MONITORING -> {
+                pauseMonitoring()
+                scheduleErrorRecovery()
+            }
+            ErrorRecoveryResult.REQUEST_PERMISSION -> {
+                updateNotification("Permission required - please check app settings")
+                stopMonitoring()
+            }
+            ErrorRecoveryResult.UNRECOVERABLE -> {
+                updateNotification("Critical error - monitoring stopped")
+                stopMonitoring()
+            }
+            else -> {
+                // Retry after delay
+                scheduleErrorRecovery()
+            }
+        }
+    }
+    
+    /**
+     * Start monitoring in degraded mode with available sensors
+     */
+    private suspend fun startMonitoringInDegradedMode() {
+        stateMutex.withLock {
+            // Start foreground service
+            startForeground(NOTIFICATION_ID, createNotification("Starting in degraded mode..."))
+            
+            // Acquire wake lock
+            wakeLock?.acquire()
+            
+            // Start session
+            val sessionId = sessionManager.startSession()
+            
+            // Reset event processing statistics for new session
+            resetEventProcessingStats()
+            
+            // Register only available sensors
+            registerAvailableSensors()
+            
+            // Try to start location provider (may fail gracefully)
+            try {
+                locationProvider.startLocationUpdates()
+            } catch (e: Exception) {
+                errorHandler.logError(e, "Location provider in degraded mode")
+            }
+            
+            // Start monitoring jobs
+            startMonitoringJobs()
+            
+            isMonitoring = true
+            isPaused = false
+            
+            updateNotification("Monitoring in degraded mode - Session: ${sessionId.take(8)}")
+        }
+    }
+    
+    /**
+     * Register sensor listeners with comprehensive error handling
+     */
+    private fun registerSensorListenersWithErrorHandling() {
+        try {
+            registerSensorListeners()
+        } catch (e: SecurityException) {
+            throw SensorPermissionDeniedException("Sensor access", e)
+        } catch (e: Exception) {
+            throw SensorUnavailableException("sensor registration", e)
+        }
+    }
+    
+    /**
+     * Start location provider with error handling
+     */
+    private fun startLocationProviderWithErrorHandling() {
+        try {
+            locationProvider.startLocationUpdates()
+        } catch (e: SecurityException) {
+            throw SensorPermissionDeniedException("Location access", e)
+        } catch (e: Exception) {
+            errorHandler.logError(e, "Location provider startup")
+            // Continue without location - events will be discarded
+        }
+    }
+    
+    /**
+     * Register only available sensors for degraded mode
+     */
+    private fun registerAvailableSensors() {
+        accelerometer?.let { sensor ->
+            try {
+                sensorManager.registerListener(this, sensor, currentSamplingRate)
+            } catch (e: Exception) {
+                errorHandler.logError(e, "Accelerometer registration")
+            }
+        }
+        
+        gyroscope?.let { sensor ->
+            try {
+                sensorManager.registerListener(this, sensor, currentSamplingRate)
+            } catch (e: Exception) {
+                errorHandler.logError(e, "Gyroscope registration")
+            }
+        }
+    }
+    
+    /**
+     * Schedule error recovery attempt
+     */
+    private fun scheduleErrorRecovery() {
+        errorRecoveryJob?.cancel()
+        errorRecoveryJob = serviceScope.launch {
+            val currentTime = System.currentTimeMillis()
+            
+            // Implement exponential backoff for recovery attempts
+            val timeSinceLastError = currentTime - lastErrorTime
+            if (timeSinceLastError < 60000) { // Less than 1 minute
+                consecutiveErrors++
+            } else {
+                consecutiveErrors = 1
+            }
+            
+            lastErrorTime = currentTime
+            val delayMs = minOf(1000L * (1 shl consecutiveErrors), 300000L) // Max 5 minutes
+            
+            delay(delayMs)
+            
+            // Attempt recovery
+            if (!isMonitoring) {
+                startMonitoring()
+            }
+        }
+    }
+    
+    /**
+     * Stop all background monitoring jobs with error handling
      */
     private fun stopMonitoringJobs() {
-        monitoringJob?.cancel()
-        batteryMonitoringJob?.cancel()
-        adaptiveSamplingJob?.cancel()
-        
-        monitoringJob = null
-        batteryMonitoringJob = null
-        adaptiveSamplingJob = null
+        try {
+            monitoringJob?.cancel()
+            batteryMonitoringJob?.cancel()
+            adaptiveSamplingJob?.cancel()
+            resourceMonitoringJob?.cancel()
+            errorRecoveryJob?.cancel()
+            
+            monitoringJob = null
+            batteryMonitoringJob = null
+            adaptiveSamplingJob = null
+            resourceMonitoringJob = null
+            errorRecoveryJob = null
+        } catch (e: Exception) {
+            errorHandler.logError(e, "Stop monitoring jobs")
+        }
     }
     
     /**
-     * Handle sensor data changes
+     * Handle resource constraint errors
      */
-    override fun onSensorChanged(event: SensorEvent?) {
-        event ?: return
+    private suspend fun handleResourceConstraintError(error: SensorDataException) {
+        val recoveryResult = errorHandler.handleSensorError(error)
         
-        val timestamp = System.currentTimeMillis()
-        
-        when (event.sensor.type) {
-            Sensor.TYPE_ACCELEROMETER -> {
-                latestAccelerometerData = AccelerometerData(
-                    x = event.values[0],
-                    y = event.values[1],
-                    z = event.values[2],
-                    accuracy = event.accuracy
-                )
+        when (recoveryResult) {
+            ErrorRecoveryResult.REDUCE_MEMORY_USAGE -> {
+                // Reduce buffer sizes and processing frequency
+                adjustForLowMemory()
             }
-            
-            Sensor.TYPE_GYROSCOPE -> {
-                latestGyroscopeData = GyroscopeData(
-                    x = event.values[0],
-                    y = event.values[1],
-                    z = event.values[2],
-                    accuracy = event.accuracy
-                )
+            ErrorRecoveryResult.REDUCE_CPU_USAGE -> {
+                // Reduce sampling rate temporarily
+                adjustSamplingRate(config.reducedSamplingRate)
+            }
+            ErrorRecoveryResult.PAUSE_MONITORING -> {
+                pauseMonitoring()
+                scheduleErrorRecovery()
+            }
+            else -> {
+                errorHandler.logError(error, "Resource constraint")
             }
         }
+    }
+    
+    /**
+     * Adjust system for low memory conditions
+     */
+    private fun adjustForLowMemory() {
+        // Force garbage collection
+        System.gc()
         
-        // Process sensor data when we have both accelerometer and gyroscope data
-        val accelData = latestAccelerometerData
-        val gyroData = latestGyroscopeData
+        // Clear any cached data
+        eventDetector.clearState()
         
-        if (accelData != null && gyroData != null && 
-            timestamp - lastSensorDataTimestamp > 10) { // Throttle to ~100Hz max
+        // Update notification
+        updateNotification("Monitoring (Low Memory Mode)")
+    }
+    
+    /**
+     * Handle sensor data changes with comprehensive error handling
+     */
+    override fun onSensorChanged(event: SensorEvent?) {
+        if (event == null) return
+        
+        try {
+            val timestamp = System.currentTimeMillis()
             
-            lastSensorDataTimestamp = timestamp
-            
-            // Create sensor data object
-            val sensorData = SensorData(
-                timestamp = timestamp,
-                accelerometer = accelData,
-                gyroscope = gyroData,
-                location = locationProvider.getCurrentLocation()
-            )
-            
-            // Process data in background
-            serviceScope.launch(defaultDispatcher) {
-                processSensorData(sensorData)
+            when (event.sensor.type) {
+                Sensor.TYPE_ACCELEROMETER -> {
+                    latestAccelerometerData = AccelerometerData(
+                        x = event.values[0],
+                        y = event.values[1],
+                        z = event.values[2],
+                        accuracy = event.accuracy
+                    )
+                }
+                
+                Sensor.TYPE_GYROSCOPE -> {
+                    latestGyroscopeData = GyroscopeData(
+                        x = event.values[0],
+                        y = event.values[1],
+                        z = event.values[2],
+                        accuracy = event.accuracy
+                    )
+                }
             }
+            
+            // Process sensor data when we have both accelerometer and gyroscope data
+            val accelData = latestAccelerometerData
+            val gyroData = latestGyroscopeData
+            
+            if (accelData != null && gyroData != null && 
+                timestamp - lastSensorDataTimestamp > 10) { // Throttle to ~100Hz max
+                
+                lastSensorDataTimestamp = timestamp
+                
+                // Create sensor data object
+                val sensorData = SensorData(
+                    timestamp = timestamp,
+                    accelerometer = accelData,
+                    gyroscope = gyroData,
+                    location = locationProvider.getCurrentLocation()
+                )
+                
+                // Process data in background with error handling
+                serviceScope.launch(defaultDispatcher) {
+                    processSensorDataWithErrorHandling(sensorData)
+                }
+            }
+        } catch (e: Exception) {
+            errorHandler.logError(e, "Sensor data processing")
+            // Continue monitoring despite individual sensor errors
         }
     }
     
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-        // Handle sensor accuracy changes if needed
-        // For now, we'll just log the change
+        try {
+            // Handle sensor accuracy changes
+            when (sensor?.type) {
+                Sensor.TYPE_ACCELEROMETER -> {
+                    if (accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE) {
+                        errorHandler.logError(
+                            SensorUnavailableException("accelerometer accuracy unreliable"),
+                            "Sensor accuracy"
+                        )
+                    }
+                }
+                Sensor.TYPE_GYROSCOPE -> {
+                    if (accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE) {
+                        errorHandler.logError(
+                            SensorUnavailableException("gyroscope accuracy unreliable"),
+                            "Sensor accuracy"
+                        )
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            errorHandler.logError(e, "Sensor accuracy change")
+        }
+    }
+    
+    /**
+     * Process sensor data through the processing pipeline with error handling
+     */
+    private suspend fun processSensorDataWithErrorHandling(sensorData: SensorData) {
+        try {
+            processSensorData(sensorData)
+        } catch (e: Exception) {
+            errorHandler.logError(e, "Sensor data processing pipeline")
+            // Continue monitoring despite processing errors
+        }
     }
     
     /**
@@ -393,8 +748,11 @@ class SensorMonitorService : Service(), SensorEventListener {
             // Update session activity
             sessionManager.updateActivity()
             
-            // Process sensor data
+            // Process sensor data (includes automatic calibration monitoring)
             val processedData = sensorDataProcessor.processSensorData(sensorData)
+            
+            // Check if recalibration is needed and attempt it
+            attemptAutomaticRecalibrationIfNeeded()
             
             // Skip processing if device is being handled (Requirements 8.2)
             if (sensorDataProcessor.isDeviceHandling(processedData.gyroscope)) {
@@ -407,14 +765,82 @@ class SensorMonitorService : Service(), SensorEventListener {
             }
             
             // Detect events using original sensor data (EventDetector expects SensorData)
-            eventDetector.detectEvent(sensorData)?.let { detectedEvent ->
-                // Event detection and storage will be handled by EventDetector
-                // which is already implemented in previous tasks
+            try {
+                eventDetector.detectEvent(sensorData)?.let { detectedEvent ->
+                    eventsDetected++
+                    
+                    // Validate the detected event
+                    if (eventDetector.validateEvent(detectedEvent)) {
+                        try {
+                            // Get current session ID
+                            val sessionId = sessionManager.getCurrentSessionId()
+                            if (sessionId != null) {
+                                // Classify the event
+                                val classifiedEvent = eventClassifier.classifyEvent(detectedEvent, sessionId)
+                                eventsClassified++
+                                
+                                // Validate the classified event
+                                if (eventClassifier.validateClassifiedEvent(classifiedEvent)) {
+                                    try {
+                                        // Store the event in the database
+                                        val eventId = eventRepository.saveEventIfSessionActive(classifiedEvent)
+                                        if (eventId != null) {
+                                            eventsStored++
+                                            // Successfully stored event
+                                            updateEventProcessingStats(classifiedEvent)
+                                            // Reset consecutive errors on successful processing
+                                            consecutiveErrors = 0
+                                        }
+                                    } catch (e: Exception) {
+                                        handleEventProcessingError(e, "Event Storage")
+                                    }
+                                }
+                            }
+                            // If no session is active, the event is discarded (Requirements 6.5)
+                        } catch (e: Exception) {
+                            handleEventProcessingError(e, "Event Classification")
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                handleEventProcessingError(e, "Event Detection")
             }
             
         } catch (e: Exception) {
-            // Log error but continue monitoring
-            // In a production app, you'd want proper logging here
+            errorHandler.logError(e, "Sensor data processing")
+            handleEventProcessingError(e, "Sensor Processing")
+        }
+    }
+    
+    /**
+     * Attempts automatic sensor recalibration if needed
+     * Requirements 8.4: Automatic sensor recalibration
+     */
+    private suspend fun attemptAutomaticRecalibrationIfNeeded() {
+        val calibrationStatus = sensorDataProcessor.getCalibrationStatus()
+        
+        // Attempt calibration if we have enough samples and conditions are right
+        if (calibrationStatus.calibrationSampleCount >= 100 || 
+            calibrationStatus.calibrationIssueDetected) {
+            
+            val success = sensorDataProcessor.calibrateSensors()
+            
+            if (success) {
+                updateNotification("Sensors recalibrated successfully")
+                // Reset notification after a delay
+                serviceScope.launch {
+                    delay(5000)
+                    val mode = if (isDegradedMode) " (Degraded Mode)" else ""
+                    updateNotification("Monitoring road conditions$mode")
+                }
+            } else if (calibrationStatus.calibrationAttempts >= 3) {
+                // Multiple calibration failures - may need user intervention
+                updateNotification("Sensor calibration issues detected")
+                errorHandler.logError(
+                    com.roadpulse.android.data.error.SensorCalibrationException("Multiple calibration failures"),
+                    "Automatic recalibration"
+                )
+            }
         }
     }
     
@@ -429,12 +855,12 @@ class SensorMonitorService : Service(), SensorEventListener {
         stateMutex.withLock {
             when {
                 // Resume if charging or battery above resume threshold
-                isPaused && (isCharging || batteryLevel >= BATTERY_RESUME_THRESHOLD) -> {
+                isPaused && (isCharging || batteryLevel >= config.batteryResumeThreshold) -> {
                     resumeMonitoring()
                 }
                 
                 // Pause if not charging and battery below pause threshold
-                !isPaused && !isCharging && batteryLevel <= BATTERY_PAUSE_THRESHOLD -> {
+                !isPaused && !isCharging && batteryLevel <= config.batteryPauseThreshold -> {
                     pauseMonitoring()
                 }
             }
@@ -449,14 +875,14 @@ class SensorMonitorService : Service(), SensorEventListener {
         val isCharging = isDeviceCharging()
         
         val newSamplingRate = when {
-            isCharging -> NORMAL_SAMPLING_RATE // Always full rate when charging
-            motionState == MotionState.STATIONARY -> REDUCED_SAMPLING_RATE // 10Hz when stationary
-            else -> NORMAL_SAMPLING_RATE // 50Hz when moving
+            isCharging -> config.normalSamplingRate // Always full rate when charging
+            motionState == MotionState.STATIONARY -> config.reducedSamplingRate // Reduced rate when stationary
+            else -> config.normalSamplingRate // Normal rate when moving
         }
         
         if (newSamplingRate != currentSamplingRate) {
-            // Wait for transition delay (2 seconds)
-            delay(SAMPLING_RATE_TRANSITION_DELAY_MS)
+            // Wait for transition delay
+            delay(config.samplingRateTransitionDelayMs)
             
             // Update sampling rate
             adjustSamplingRate(newSamplingRate)
@@ -551,4 +977,100 @@ class SensorMonitorService : Service(), SensorEventListener {
         val notification = createNotification(contentText)
         notificationManager.notify(NOTIFICATION_ID, notification)
     }
+    
+    /**
+     * Update event processing statistics and notification
+     */
+    private fun updateEventProcessingStats(event: RoadAnomalyEvent) {
+        eventsDetected++
+        eventsClassified++
+        eventsStored++
+        
+        val currentTime = System.currentTimeMillis()
+        
+        // Update notification with stats every 30 seconds or every 10 events
+        if (currentTime - lastStatsUpdateTime > 30_000 || eventsStored % 10 == 0) {
+            lastStatsUpdateTime = currentTime
+            val mode = if (isDegradedMode) " (Degraded)" else ""
+            val statsText = "Monitoring$mode - ${eventsStored} events detected"
+            updateNotification(statsText)
+        }
+    }
+    
+    /**
+     * Reset event processing statistics
+     */
+    private fun resetEventProcessingStats() {
+        eventsDetected = 0
+        eventsClassified = 0
+        eventsStored = 0
+        lastStatsUpdateTime = 0L
+    }
+    
+    /**
+     * Handle errors in the event processing pipeline with proper error propagation
+     */
+    private suspend fun handleEventProcessingError(error: Exception, stage: String) {
+        errorHandler.logError(error, "Event processing - $stage")
+        
+        // Increment error count for monitoring
+        consecutiveErrors++
+        
+        // If we have too many consecutive errors, consider degraded mode
+        if (consecutiveErrors > 10) {
+            val recoveryResult = errorHandler.handleSensorError(
+                SensorUnavailableException("Too many processing errors", error)
+            )
+            
+            when (recoveryResult) {
+                com.roadpulse.android.data.error.ErrorRecoveryResult.DEGRADED_MODE -> {
+                    isDegradedMode = true
+                    updateNotification("Processing errors - degraded mode")
+                }
+                com.roadpulse.android.data.error.ErrorRecoveryResult.PAUSE_MONITORING -> {
+                    pauseMonitoring()
+                    scheduleErrorRecovery()
+                }
+                else -> {
+                    // Continue with current mode
+                }
+            }
+        }
+    }
+    
+    /**
+     * Get current service status for monitoring and debugging
+     */
+    fun getServiceStatus(): ServiceStatus {
+        return ServiceStatus(
+            isMonitoring = isMonitoring,
+            isPaused = isPaused,
+            isDegradedMode = isDegradedMode,
+            currentSamplingRate = currentSamplingRate,
+            eventsDetected = eventsDetected,
+            eventsClassified = eventsClassified,
+            eventsStored = eventsStored,
+            consecutiveErrors = consecutiveErrors,
+            hasAccelerometer = accelerometer != null,
+            hasGyroscope = gyroscope != null,
+            isLocationAvailable = locationProvider.isLocationAvailable()
+        )
+    }
+    
+    /**
+     * Data class representing the current service status
+     */
+    data class ServiceStatus(
+        val isMonitoring: Boolean,
+        val isPaused: Boolean,
+        val isDegradedMode: Boolean,
+        val currentSamplingRate: Int,
+        val eventsDetected: Int,
+        val eventsClassified: Int,
+        val eventsStored: Int,
+        val consecutiveErrors: Int,
+        val hasAccelerometer: Boolean,
+        val hasGyroscope: Boolean,
+        val isLocationAvailable: Boolean
+    )
 }

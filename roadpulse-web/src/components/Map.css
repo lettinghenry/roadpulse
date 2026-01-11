@@ -1,0 +1,701 @@
+/* Map component styles */
+.map-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Keyboard navigation support */
+.map-wrapper:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.map-wrapper:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Screen reader support */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Keyboard navigation instructions */
+.keyboard-instructions {
+  position: absolute;
+  top: -200px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  z-index: 2000;
+  max-width: 300px;
+  transition: top 0.3s ease;
+}
+
+.keyboard-instructions.visible {
+  top: 10px;
+}
+
+.keyboard-instructions h3 {
+  margin: 0 0 8px 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.keyboard-instructions ul {
+  margin: 0;
+  padding-left: 20px;
+  list-style-type: disc;
+}
+
+.keyboard-instructions li {
+  margin-bottom: 4px;
+}
+
+.keyboard-instructions kbd {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2px 4px;
+  border-radius: 2px;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+.main-map {
+  height: 100%;
+  width: 100%;
+}
+
+.map-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+/* Filter controls container */
+.filter-controls-container {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1000;
+  max-width: 300px;
+  transition: all 0.3s ease;
+}
+
+.filter-controls-container .map-filter-controls {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Location Controls styles */
+.location-controls {
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.location-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 15px;
+  border: none;
+  background: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+  transition: all 0.2s ease;
+  min-width: 120px;
+  min-height: 44px; /* Minimum touch target size */
+  position: relative;
+  overflow: hidden;
+}
+
+.location-button:hover:not(:disabled) {
+  background-color: #f5f5f5;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.location-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.location-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.location-error {
+  background-color: #fee;
+  border-top: 1px solid #fcc;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: #c33;
+}
+
+.error-dismiss {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #c33;
+  padding: 4px;
+  margin-left: 10px;
+  min-width: 24px;
+  min-height: 24px;
+  border-radius: 2px;
+  transition: all 0.2s ease;
+}
+
+.error-dismiss:hover {
+  color: #a11;
+  background-color: rgba(170, 17, 17, 0.1);
+}
+
+.location-permission-help {
+  background-color: #f9f9f9;
+  border-top: 1px solid #ddd;
+  padding: 15px;
+  font-size: 13px;
+  color: #666;
+  max-width: 250px;
+  line-height: 1.4;
+}
+
+.location-permission-help p {
+  margin: 0 0 10px 0;
+  font-weight: 500;
+}
+
+.location-permission-help ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.location-permission-help li {
+  margin-bottom: 5px;
+}
+
+/* Mobile-first responsive design */
+@media (max-width: 767px) {
+  .map-controls {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: auto;
+    right: auto;
+    flex-direction: row;
+    justify-content: center;
+    gap: 12px;
+    z-index: 1001;
+    max-width: 90vw;
+  }
+  
+  .filter-controls-container {
+    position: fixed;
+    bottom: 80px;
+    left: 10px;
+    right: 10px;
+    top: auto;
+    max-width: none;
+    z-index: 1000;
+  }
+  
+  .filter-controls-container .map-filter-controls {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .location-controls {
+    border-radius: 25px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.95);
+  }
+  
+  .location-button {
+    padding: 12px 16px;
+    font-size: 14px;
+    min-width: 48px;
+    min-height: 48px;
+    border-radius: 25px;
+    font-weight: 600;
+  }
+  
+  .location-permission-help {
+    max-width: 280px;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+  
+  /* Landscape orientation adjustments */
+  @media (orientation: landscape) {
+    .map-controls {
+      bottom: 12px;
+      gap: 8px;
+    }
+    
+    .filter-controls-container {
+      bottom: 60px;
+      left: 8px;
+      right: 8px;
+    }
+    
+    .location-button {
+      padding: 8px 12px;
+      min-height: 40px;
+      font-size: 13px;
+    }
+  }
+}
+
+/* Tablet styles */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .map-controls {
+    top: 12px;
+    right: 12px;
+    gap: 8px;
+  }
+  
+  .filter-controls-container {
+    top: 12px;
+    left: 12px;
+    max-width: 280px;
+  }
+  
+  .location-button {
+    padding: 10px 14px;
+    font-size: 14px;
+    min-width: 110px;
+    min-height: 44px;
+  }
+  
+  .location-permission-help {
+    max-width: 220px;
+    padding: 12px;
+    font-size: 13px;
+  }
+}
+
+/* Desktop styles */
+@media (min-width: 1024px) {
+  .map-controls {
+    top: 16px;
+    right: 16px;
+    gap: 10px;
+  }
+  
+  .filter-controls-container {
+    top: 16px;
+    left: 16px;
+    max-width: 320px;
+  }
+  
+  .location-button {
+    padding: 10px 15px;
+    font-size: 14px;
+    min-width: 120px;
+    min-height: 40px;
+  }
+  
+  .location-permission-help {
+    max-width: 250px;
+    padding: 15px;
+    font-size: 13px;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .location-button {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  
+  .location-button:hover {
+    transform: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .error-dismiss {
+    min-width: 32px;
+    min-height: 32px;
+    padding: 8px;
+  }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .location-controls {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  }
+  
+  .location-button {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Accessibility improvements */
+.location-button:focus {
+  outline: 2px solid #007cba;
+  outline-offset: 2px;
+  z-index: 1;
+}
+
+.error-dismiss:focus {
+  outline: 2px solid #c33;
+  outline-offset: 2px;
+}
+
+/* Keyboard navigation */
+.location-button:focus-visible {
+  outline: 2px solid #007cba;
+  outline-offset: 2px;
+}
+
+/* Interactive element focus styles */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Map marker focus styles */
+.leaflet-marker-icon:focus,
+.leaflet-marker-icon:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+  z-index: 1000;
+}
+
+.cluster-marker:focus,
+.cluster-marker:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+  z-index: 1000;
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 2000;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .location-controls {
+    border: 2px solid #000;
+    background: #fff;
+  }
+  
+  .location-button {
+    border: 1px solid #000;
+    background: #fff;
+    color: #000;
+  }
+  
+  .location-button:hover:not(:disabled) {
+    background: #f0f0f0;
+  }
+  
+  .location-error {
+    border: 2px solid #c33;
+    background: #fff;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .location-controls {
+    background: rgba(45, 45, 45, 0.95);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+  
+  .filter-controls-container .map-filter-controls {
+    background: rgba(45, 45, 45, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+  
+  .location-button {
+    background: #2d2d2d;
+    color: #fff;
+  }
+  
+  .location-button:hover:not(:disabled) {
+    background: #404040;
+  }
+  
+  .location-permission-help {
+    background: #1a1a1a;
+    color: #ccc;
+    border-top-color: #404040;
+  }
+  
+  .location-error {
+    background: #2d1a1a;
+    color: #ff6b6b;
+    border-top-color: #4d2626;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .location-button,
+  .error-dismiss,
+  .map-controls {
+    transition: none;
+  }
+  
+  .loading-spinner {
+    animation: none;
+  }
+  
+  .location-button:hover {
+    transform: none;
+  }
+}
+
+/* Safe area support for devices with notches */
+@supports (padding: max(0px)) {
+  @media (max-width: 767px) {
+    .map-controls {
+      bottom: max(20px, env(safe-area-inset-bottom));
+      left: max(50%, calc(50% + env(safe-area-inset-left) - env(safe-area-inset-right)));
+    }
+  }
+}
+
+/* Map layer controls container */
+.layer-controls-container {
+  position: absolute;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.layer-controls-container .map-layer-controls {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Heat map controls container */
+.heat-map-controls-container {
+  position: absolute;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+.heat-map-controls-container .map-heat-map-controls {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Layer-specific marker visibility enhancements */
+.leaflet-container .street-layer {
+  /* Street map layer - standard visibility */
+}
+
+.leaflet-container .satellite-layer {
+  /* Satellite layer - ensure markers have sufficient contrast */
+}
+
+/* Marker visibility enhancements for satellite imagery */
+.leaflet-container .satellite-layer ~ .leaflet-marker-pane .leaflet-marker-icon {
+  /* Add subtle shadow for better visibility on satellite imagery */
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.leaflet-container .satellite-layer ~ .leaflet-marker-pane .cluster-marker {
+  /* Enhanced cluster visibility on satellite imagery */
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Popup visibility enhancements for different layers */
+.leaflet-container .satellite-layer ~ .leaflet-popup-pane .leaflet-popup {
+  /* Enhanced popup visibility on satellite imagery */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6);
+}
+
+.leaflet-container .satellite-layer ~ .leaflet-popup-pane .leaflet-popup-content-wrapper {
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Layer transition effects */
+.leaflet-tile-layer.transitioning {
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+}
+
+/* Mobile responsive adjustments for layer controls */
+@media (max-width: 767px) {
+  .layer-controls-container {
+    position: fixed;
+    bottom: 200px;
+    left: 10px;
+    right: 10px;
+    max-width: none;
+    z-index: 1000;
+  }
+  
+  .layer-controls-container .map-layer-controls {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  .heat-map-controls-container {
+    position: fixed;
+    bottom: 140px;
+    left: 10px;
+    right: 10px;
+    max-width: none;
+    z-index: 1000;
+  }
+  
+  .heat-map-controls-container .map-heat-map-controls {
+    background: rgba(255, 255, 255, 0.98);
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+}
+
+/* Tablet styles for layer controls */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .layer-controls-container {
+    max-width: 280px;
+  }
+  
+  .heat-map-controls-container {
+    max-width: 280px;
+  }
+}
+
+/* Desktop styles for layer controls */
+@media (min-width: 1024px) {
+  .layer-controls-container {
+    max-width: 320px;
+  }
+  
+  .heat-map-controls-container {
+    max-width: 320px;
+  }
+}
+
+/* Dark mode support for layer controls */
+@media (prefers-color-scheme: dark) {
+  .layer-controls-container .map-layer-controls {
+    background: rgba(45, 45, 45, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+  
+  .heat-map-controls-container .map-heat-map-controls {
+    background: rgba(45, 45, 45, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* High contrast mode support for layer controls */
+@media (prefers-contrast: high) {
+  .layer-controls-container .map-layer-controls {
+    border: 2px solid #000;
+    background: #fff;
+  }
+  
+  .heat-map-controls-container .map-heat-map-controls {
+    border: 2px solid #000;
+    background: #fff;
+  }
+  
+  /* Enhanced marker visibility in high contrast mode */
+  .leaflet-container .leaflet-marker-icon {
+    border: 2px solid #000;
+  }
+  
+  .leaflet-container .cluster-marker {
+    border: 3px solid #000;
+  }
+}
+
+/* Reduced motion support for layer controls */
+@media (prefers-reduced-motion: reduce) {
+  .layer-controls-container,
+  .heat-map-controls-container {
+    transition: none;
+  }
+  
+  .leaflet-tile-layer.transitioning {
+    transition: none;
+  }
+}

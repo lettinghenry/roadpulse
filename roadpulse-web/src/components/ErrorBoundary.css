@@ -1,0 +1,363 @@
+/* Error Boundary Styles */
+
+.error-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding: 2rem;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  color: #991b1b;
+}
+
+.error-fallback__content {
+  text-align: center;
+  max-width: 500px;
+}
+
+.error-fallback__icon {
+  margin-bottom: 1rem;
+  color: #dc2626;
+}
+
+.error-fallback__title {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #991b1b;
+}
+
+.error-fallback__message {
+  margin: 0 0 1.5rem 0;
+  color: #7f1d1d;
+  line-height: 1.5;
+}
+
+.error-fallback__actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.error-fallback__button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.error-fallback__button--primary {
+  background-color: #dc2626;
+  color: white;
+}
+
+.error-fallback__button--primary:hover {
+  background-color: #b91c1c;
+}
+
+.error-fallback__button--secondary {
+  background-color: #f3f4f6;
+  color: #374151;
+  border: 1px solid #d1d5db;
+}
+
+.error-fallback__button--secondary:hover {
+  background-color: #e5e7eb;
+}
+
+.error-fallback__button--text {
+  background-color: transparent;
+  color: #6b7280;
+  text-decoration: underline;
+}
+
+.error-fallback__button--text:hover {
+  color: #374151;
+}
+
+.error-fallback__details {
+  text-align: left;
+  background-color: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.error-fallback__details h3 {
+  margin: 0 0 0.75rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.error-fallback__details p {
+  margin: 0.5rem 0;
+  font-size: 0.875rem;
+  color: #6b7280;
+}
+
+.error-fallback__details strong {
+  color: #374151;
+}
+
+.error-fallback__details details {
+  margin: 0.75rem 0;
+}
+
+.error-fallback__details summary {
+  cursor: pointer;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.error-fallback__stack {
+  background-color: #f9fafb;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 0.75rem;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  color: #374151;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Map Error Fallback */
+
+.map-error-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  background-color: #f8fafc;
+  border: 2px dashed #cbd5e1;
+  border-radius: 12px;
+  color: #475569;
+}
+
+.map-error-fallback__content {
+  text-align: center;
+  max-width: 400px;
+  padding: 2rem;
+}
+
+.map-error-fallback__icon {
+  margin-bottom: 1.5rem;
+  color: #64748b;
+}
+
+.map-error-fallback h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.map-error-fallback p {
+  margin: 0 0 1rem 0;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.map-error-fallback__reasons {
+  text-align: left;
+  margin: 1rem 0 1.5rem 0;
+  padding-left: 1.5rem;
+  color: #64748b;
+}
+
+.map-error-fallback__reasons li {
+  margin: 0.25rem 0;
+}
+
+.map-error-fallback__actions {
+  margin: 1.5rem 0;
+}
+
+.map-error-fallback__button {
+  background-color: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.map-error-fallback__button:hover:not(:disabled) {
+  background-color: #2563eb;
+}
+
+.map-error-fallback__button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.map-error-fallback__help {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.map-error-fallback__help p {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #475569;
+}
+
+.map-error-fallback__help ul {
+  text-align: left;
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #64748b;
+}
+
+.map-error-fallback__help li {
+  margin: 0.25rem 0;
+}
+
+/* Data Error Fallback */
+
+.data-error-fallback {
+  background-color: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 1rem 0;
+}
+
+.data-error-fallback__content h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #92400e;
+}
+
+.data-error-fallback__content p {
+  margin: 0 0 1rem 0;
+  color: #78350f;
+  line-height: 1.5;
+}
+
+.data-error-fallback__empty p {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.data-error-fallback__empty ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #78350f;
+}
+
+.data-error-fallback__empty li {
+  margin: 0.25rem 0;
+}
+
+/* Skip link for accessibility */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #000;
+  color: #fff;
+  padding: 8px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 10000;
+}
+
+.skip-link:focus {
+  top: 6px;
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .error-fallback {
+    padding: 1rem;
+    min-height: 150px;
+  }
+  
+  .error-fallback__content {
+    max-width: 100%;
+  }
+  
+  .error-fallback__title {
+    font-size: 1.25rem;
+  }
+  
+  .error-fallback__actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .error-fallback__button {
+    width: 100%;
+    max-width: 200px;
+  }
+  
+  .map-error-fallback {
+    min-height: 300px;
+  }
+  
+  .map-error-fallback__content {
+    padding: 1rem;
+  }
+  
+  .map-error-fallback h2 {
+    font-size: 1.25rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .error-fallback {
+    border-width: 2px;
+  }
+  
+  .error-fallback__button--primary {
+    border: 2px solid #991b1b;
+  }
+  
+  .error-fallback__button--secondary {
+    border-width: 2px;
+  }
+  
+  .map-error-fallback {
+    border-width: 3px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .error-fallback__button,
+  .map-error-fallback__button {
+    transition: none;
+  }
+}

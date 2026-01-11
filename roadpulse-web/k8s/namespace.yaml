@@ -1,0 +1,97 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: roadpulse
+  labels:
+    name: roadpulse
+    app.kubernetes.io/name: roadpulse
+    app.kubernetes.io/component: namespace
+    environment: production
+  annotations:
+    description: "Namespace for RoadPulse application components"
+
+---
+# Network policy for security
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: roadpulse-web-network-policy
+  namespace: roadpulse
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: roadpulse-web
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: ingress-nginx
+    ports:
+    - protocol: TCP
+      port: 8080
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: monitoring
+    ports:
+    - protocol: TCP
+      port: 8080
+  egress:
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53
+  - to: []
+    ports:
+    - protocol: TCP
+      port: 443
+    - protocol: TCP
+      port: 80
+
+---
+# Resource quota for the namespace
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: roadpulse-resource-quota
+  namespace: roadpulse
+spec:
+  hard:
+    requests.cpu: "4"
+    requests.memory: 8Gi
+    limits.cpu: "8"
+    limits.memory: 16Gi
+    persistentvolumeclaims: "10"
+    pods: "20"
+    services: "10"
+    secrets: "20"
+    configmaps: "20"
+
+---
+# Limit range for pods
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: roadpulse-limit-range
+  namespace: roadpulse
+spec:
+  limits:
+  - default:
+      cpu: 500m
+      memory: 512Mi
+    defaultRequest:
+      cpu: 100m
+      memory: 128Mi
+    type: Container
+  - max:
+      cpu: "2"
+      memory: 2Gi
+    min:
+      cpu: 50m
+      memory: 64Mi
+    type: Container

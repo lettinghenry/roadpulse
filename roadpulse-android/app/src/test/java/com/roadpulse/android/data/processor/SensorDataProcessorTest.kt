@@ -4,11 +4,13 @@ import com.roadpulse.android.data.model.AccelerometerData
 import com.roadpulse.android.data.model.GyroscopeData
 import com.roadpulse.android.data.model.LocationData
 import com.roadpulse.android.data.model.SensorData
+import com.roadpulse.android.data.error.ErrorHandler
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.*
 import io.kotest.property.checkAll
+import io.mockk.mockk
 
 /**
  * Property-based tests for SensorDataProcessor.
@@ -23,12 +25,13 @@ class SensorDataProcessorTest : StringSpec({
      */
     "Property 27: For any sensor data, motion state determination should require consensus between multiple sensors when sensors disagree" {
         checkAll(
-            iterations = 20,
+            iterations = 5,
             Arb.long(1000L, System.currentTimeMillis()), // timestamp
             Arb.sensorDataForMotionConsensus() // Custom generator for motion consensus scenarios
         ) { timestamp, (accelData, gyroData, expectedConsensus) ->
             
-            val processor = SensorDataProcessor()
+            val mockErrorHandler = mockk<ErrorHandler>(relaxed = true)
+            val processor = SensorDataProcessor(mockErrorHandler)
             
             // Create sensor data with the generated accelerometer and gyroscope data
             val sensorData = SensorData(

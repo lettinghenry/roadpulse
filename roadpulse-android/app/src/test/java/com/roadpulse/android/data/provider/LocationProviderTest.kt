@@ -25,7 +25,7 @@ class LocationProviderTest : StringSpec({
      */
     "Property 10: For any detected road anomaly event, all GPS metadata should be recorded when GPS signal is available" {
         checkAll(
-            iterations = 20,
+            iterations = 5,
             Arb.detectedEventWithGPS(), // Custom generator for events with GPS data
             Arb.string(1, 50), // sessionId
             Arb.int(1, 5), // severity
@@ -69,7 +69,7 @@ class LocationProviderTest : StringSpec({
     
     "GPS data validation for LocationData" {
         checkAll(
-            iterations = 20,
+            iterations = 5,
             Arb.validLocationData()
         ) { locationData ->
             

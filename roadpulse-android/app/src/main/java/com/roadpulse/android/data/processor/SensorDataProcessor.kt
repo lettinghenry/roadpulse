@@ -1,5 +1,7 @@
 package com.roadpulse.android.data.processor
 
+import com.roadpulse.android.data.error.ErrorHandler
+import com.roadpulse.android.data.error.SensorCalibrationException
 import com.roadpulse.android.data.model.AccelerometerData
 import com.roadpulse.android.data.model.GyroscopeData
 import com.roadpulse.android.data.model.SensorData
@@ -16,7 +18,9 @@ import kotlin.math.*
  * Implements Requirements 8.4 (sensor calibration) and 8.5 (multi-sensor consensus).
  */
 @Singleton
-class SensorDataProcessor @Inject constructor() {
+class SensorDataProcessor @Inject constructor(
+    private val errorHandler: ErrorHandler
+) {
     
     // Calibration offsets for accelerometer
     private var accelOffsetX = 0.0f
@@ -40,6 +44,17 @@ class SensorDataProcessor @Inject constructor() {
     private var isCalibrated = false
     private val calibrationSamples = mutableListOf<SensorData>()
     private val maxCalibrationSamples = 100
+    private var lastCalibrationTime = 0L
+    private var calibrationAttempts = 0
+    private val maxCalibrationAttempts = 3
+    private val calibrationIntervalMs = 300000L // 5 minutes between attempts
+    
+    // Calibration issue detection
+    private var calibrationIssueDetected = false
+    private var lastCalibrationCheck = 0L
+    private val calibrationCheckIntervalMs = 60000L // Check every minute
+    private val calibrationDriftThreshold = 2.0f // m/s² for accelerometer drift
+    private val gyroDriftThreshold = 0.5f // rad/s for gyroscope drift
     
     // Noise filtering - moving average buffers
     private val accelBuffer = CircularBuffer<AccelerometerData>(5)
@@ -56,8 +71,12 @@ class SensorDataProcessor @Inject constructor() {
     
     /**
      * Processes raw sensor data with filtering and calibration
+     * Includes automatic calibration issue detection
      */
     fun processSensorData(data: SensorData): ProcessedSensorData {
+        // Check for calibration issues periodically
+        checkCalibrationIssues(data)
+        
         // Apply calibration if available
         val calibratedAccel = applyCalibratedAccelerometer(data.accelerometer)
         val calibratedGyro = applyCalibratedGyroscope(data.gyroscope)
@@ -72,6 +91,11 @@ class SensorDataProcessor @Inject constructor() {
         // Update device orientation
         updateDeviceOrientation(filteredAccel, filteredGyro)
         
+        // Add sample for calibration if needed
+        if (!isCalibrated || calibrationIssueDetected) {
+            addCalibrationSample(data)
+        }
+        
         return ProcessedSensorData(
             timestamp = data.timestamp,
             accelerometer = filteredAccel,
@@ -84,30 +108,84 @@ class SensorDataProcessor @Inject constructor() {
     }
     
     /**
-     * Attempts automatic sensor calibration
+     * Attempts automatic sensor calibration with enhanced error handling
      * Requirements 8.4: Automatic sensor recalibration
      */
     fun calibrateSensors(): Boolean {
-        if (calibrationSamples.size < maxCalibrationSamples) {
-            return false // Not enough samples for calibration
+        val currentTime = System.currentTimeMillis()
+        
+        // Check if we should attempt calibration
+        if (!shouldAttemptCalibration(currentTime)) {
+            return false
         }
         
-        // Calculate accelerometer offsets (assuming device is stationary)
-        val accelSamples = calibrationSamples.map { it.accelerometer }
-        accelOffsetX = accelSamples.map { it.x }.average().toFloat()
-        accelOffsetY = accelSamples.map { it.y }.average().toFloat()
-        accelOffsetZ = accelSamples.map { it.z }.average().toFloat() - 9.81f // Gravity compensation
+        if (calibrationSamples.size < maxCalibrationSamples) {
+            errorHandler.logError(
+                SensorCalibrationException("Insufficient samples: ${calibrationSamples.size}/$maxCalibrationSamples"),
+                "Calibration attempt"
+            )
+            return false
+        }
         
-        // Calculate gyroscope offsets (assuming device is stationary)
-        val gyroSamples = calibrationSamples.map { it.gyroscope }
-        gyroOffsetX = gyroSamples.map { it.x }.average().toFloat()
-        gyroOffsetY = gyroSamples.map { it.y }.average().toFloat()
-        gyroOffsetZ = gyroSamples.map { it.z }.average().toFloat()
-        
-        isCalibrated = true
-        calibrationSamples.clear()
-        
-        return true
+        try {
+            // Validate calibration samples quality
+            if (!validateCalibrationSamples()) {
+                errorHandler.logError(
+                    SensorCalibrationException("Calibration samples quality insufficient"),
+                    "Calibration validation"
+                )
+                calibrationSamples.clear()
+                return false
+            }
+            
+            // Calculate accelerometer offsets (assuming device is stationary)
+            val accelSamples = calibrationSamples.map { it.accelerometer }
+            val newAccelOffsetX = accelSamples.map { it.x }.average().toFloat()
+            val newAccelOffsetY = accelSamples.map { it.y }.average().toFloat()
+            val newAccelOffsetZ = accelSamples.map { it.z }.average().toFloat() - 9.81f // Gravity compensation
+            
+            // Calculate gyroscope offsets (assuming device is stationary)
+            val gyroSamples = calibrationSamples.map { it.gyroscope }
+            val newGyroOffsetX = gyroSamples.map { it.x }.average().toFloat()
+            val newGyroOffsetY = gyroSamples.map { it.y }.average().toFloat()
+            val newGyroOffsetZ = gyroSamples.map { it.z }.average().toFloat()
+            
+            // Validate new calibration values
+            if (!validateCalibrationValues(newAccelOffsetX, newAccelOffsetY, newAccelOffsetZ,
+                                         newGyroOffsetX, newGyroOffsetY, newGyroOffsetZ)) {
+                errorHandler.logError(
+                    SensorCalibrationException("Calibration values out of expected range"),
+                    "Calibration validation"
+                )
+                calibrationSamples.clear()
+                return false
+            }
+            
+            // Apply new calibration values
+            accelOffsetX = newAccelOffsetX
+            accelOffsetY = newAccelOffsetY
+            accelOffsetZ = newAccelOffsetZ
+            gyroOffsetX = newGyroOffsetX
+            gyroOffsetY = newGyroOffsetY
+            gyroOffsetZ = newGyroOffsetZ
+            
+            isCalibrated = true
+            calibrationIssueDetected = false
+            lastCalibrationTime = currentTime
+            calibrationAttempts = 0
+            calibrationSamples.clear()
+            
+            return true
+            
+        } catch (e: Exception) {
+            calibrationAttempts++
+            errorHandler.logError(
+                SensorCalibrationException("Calibration failed: ${e.message}", e),
+                "Calibration attempt $calibrationAttempts"
+            )
+            calibrationSamples.clear()
+            return false
+        }
     }
     
     /**
@@ -148,12 +226,247 @@ class SensorDataProcessor @Inject constructor() {
     }
     
     /**
-     * Adds sensor data for calibration
+     * Adds sensor data for calibration with quality checks
      */
     fun addCalibrationSample(data: SensorData) {
-        if (calibrationSamples.size < maxCalibrationSamples) {
-            calibrationSamples.add(data)
+        // Only add samples when device is stationary for better calibration
+        if (_motionState.value == MotionState.STATIONARY && calibrationSamples.size < maxCalibrationSamples) {
+            // Check if sample quality is good enough for calibration
+            if (isGoodCalibrationSample(data)) {
+                calibrationSamples.add(data)
+            }
         }
+    }
+    
+    /**
+     * Checks for calibration issues and triggers recalibration if needed
+     * Requirements 8.4: Sensor calibration issue detection
+     */
+    private fun checkCalibrationIssues(data: SensorData) {
+        val currentTime = System.currentTimeMillis()
+        
+        // Only check periodically to avoid performance impact
+        if (currentTime - lastCalibrationCheck < calibrationCheckIntervalMs) {
+            return
+        }
+        
+        lastCalibrationCheck = currentTime
+        
+        if (!isCalibrated) {
+            return // Can't check issues if not calibrated yet
+        }
+        
+        // Check for accelerometer drift
+        val accelDrift = detectAccelerometerDrift(data.accelerometer)
+        val gyroDrift = detectGyroscopeDrift(data.gyroscope)
+        
+        if (accelDrift > calibrationDriftThreshold || gyroDrift > gyroDriftThreshold) {
+            calibrationIssueDetected = true
+            errorHandler.logError(
+                SensorCalibrationException("Calibration drift detected - accel: $accelDrift, gyro: $gyroDrift"),
+                "Calibration monitoring"
+            )
+            
+            // Attempt automatic recalibration
+            attemptAutomaticRecalibration()
+        }
+    }
+    
+    /**
+     * Attempts automatic recalibration when issues are detected
+     */
+    private fun attemptAutomaticRecalibration() {
+        val currentTime = System.currentTimeMillis()
+        
+        // Don't attempt too frequently
+        if (currentTime - lastCalibrationTime < calibrationIntervalMs) {
+            return
+        }
+        
+        // Don't exceed maximum attempts
+        if (calibrationAttempts >= maxCalibrationAttempts) {
+            errorHandler.logError(
+                SensorCalibrationException("Maximum calibration attempts exceeded"),
+                "Automatic recalibration"
+            )
+            return
+        }
+        
+        // Clear existing samples and start fresh
+        calibrationSamples.clear()
+        
+        // The calibration will happen automatically as new samples are added
+        // when processSensorData is called
+    }
+    
+    /**
+     * Checks if we should attempt calibration based on timing and conditions
+     */
+    private fun shouldAttemptCalibration(currentTime: Long): Boolean {
+        // Don't attempt too frequently
+        if (currentTime - lastCalibrationTime < calibrationIntervalMs) {
+            return false
+        }
+        
+        // Don't exceed maximum attempts
+        if (calibrationAttempts >= maxCalibrationAttempts) {
+            return false
+        }
+        
+        // Only calibrate when device is stationary
+        if (_motionState.value != MotionState.STATIONARY) {
+            return false
+        }
+        
+        return true
+    }
+    
+    /**
+     * Validates the quality of calibration samples
+     */
+    private fun validateCalibrationSamples(): Boolean {
+        if (calibrationSamples.isEmpty()) {
+            return false
+        }
+        
+        // Check that all samples are from stationary periods
+        val hasMovingSamples = calibrationSamples.any { sample ->
+            val accelMagnitude = sample.accelerometer.magnitude()
+            val gyroMagnitude = sample.gyroscope.magnitude()
+            accelMagnitude > motionThreshold || gyroMagnitude > 0.1f
+        }
+        
+        if (hasMovingSamples) {
+            return false
+        }
+        
+        // Check sample variance - should be low for good calibration
+        val accelVariance = calculateAccelerometerVariance()
+        val gyroVariance = calculateGyroscopeVariance()
+        
+        return accelVariance < 1.0f && gyroVariance < 0.1f
+    }
+    
+    /**
+     * Validates new calibration values are within expected ranges
+     */
+    private fun validateCalibrationValues(
+        accelX: Float, accelY: Float, accelZ: Float,
+        gyroX: Float, gyroY: Float, gyroZ: Float
+    ): Boolean {
+        // Accelerometer offsets should be reasonable (within ±5 m/s²)
+        if (abs(accelX) > 5.0f || abs(accelY) > 5.0f || abs(accelZ) > 5.0f) {
+            return false
+        }
+        
+        // Gyroscope offsets should be small (within ±1 rad/s)
+        if (abs(gyroX) > 1.0f || abs(gyroY) > 1.0f || abs(gyroZ) > 1.0f) {
+            return false
+        }
+        
+        return true
+    }
+    
+    /**
+     * Checks if a sample is good quality for calibration
+     */
+    private fun isGoodCalibrationSample(data: SensorData): Boolean {
+        // Check sensor accuracy
+        if (data.accelerometer.accuracy < 2 || data.gyroscope.accuracy < 2) {
+            return false
+        }
+        
+        // Check that device is truly stationary
+        val accelMagnitude = data.accelerometer.magnitude()
+        val gyroMagnitude = data.gyroscope.magnitude()
+        
+        return accelMagnitude < stationaryThreshold && gyroMagnitude < 0.05f
+    }
+    
+    /**
+     * Detects accelerometer drift from expected values
+     */
+    private fun detectAccelerometerDrift(accel: AccelerometerData): Float {
+        // Expected gravity vector when device is stationary and horizontal
+        val expectedGravity = 9.81f
+        val actualGravity = sqrt(accel.x * accel.x + accel.y * accel.y + accel.z * accel.z)
+        
+        return abs(actualGravity - expectedGravity)
+    }
+    
+    /**
+     * Detects gyroscope drift from expected zero values
+     */
+    private fun detectGyroscopeDrift(gyro: GyroscopeData): Float {
+        // When stationary, gyroscope should read close to zero
+        return gyro.magnitude()
+    }
+    
+    /**
+     * Calculates variance in accelerometer readings for calibration validation
+     */
+    private fun calculateAccelerometerVariance(): Float {
+        if (calibrationSamples.size < 2) return Float.MAX_VALUE
+        
+        val accelSamples = calibrationSamples.map { it.accelerometer }
+        val meanX = accelSamples.map { it.x }.average().toFloat()
+        val meanY = accelSamples.map { it.y }.average().toFloat()
+        val meanZ = accelSamples.map { it.z }.average().toFloat()
+        
+        val variance = accelSamples.map { accel ->
+            val dx = accel.x - meanX
+            val dy = accel.y - meanY
+            val dz = accel.z - meanZ
+            dx * dx + dy * dy + dz * dz
+        }.average().toFloat()
+        
+        return variance
+    }
+    
+    /**
+     * Calculates variance in gyroscope readings for calibration validation
+     */
+    private fun calculateGyroscopeVariance(): Float {
+        if (calibrationSamples.size < 2) return Float.MAX_VALUE
+        
+        val gyroSamples = calibrationSamples.map { it.gyroscope }
+        val meanX = gyroSamples.map { it.x }.average().toFloat()
+        val meanY = gyroSamples.map { it.y }.average().toFloat()
+        val meanZ = gyroSamples.map { it.z }.average().toFloat()
+        
+        val variance = gyroSamples.map { gyro ->
+            val dx = gyro.x - meanX
+            val dy = gyro.y - meanY
+            val dz = gyro.z - meanZ
+            dx * dx + dy * dy + dz * dz
+        }.average().toFloat()
+        
+        return variance
+    }
+    
+    /**
+     * Gets calibration status information
+     */
+    fun getCalibrationStatus(): CalibrationStatus {
+        return CalibrationStatus(
+            isCalibrated = isCalibrated,
+            calibrationIssueDetected = calibrationIssueDetected,
+            calibrationSampleCount = calibrationSamples.size,
+            calibrationAttempts = calibrationAttempts,
+            lastCalibrationTime = lastCalibrationTime,
+            accelOffsets = Triple(accelOffsetX, accelOffsetY, accelOffsetZ),
+            gyroOffsets = Triple(gyroOffsetX, gyroOffsetY, gyroOffsetZ)
+        )
+    }
+    
+    /**
+     * Forces a recalibration attempt (for testing or manual trigger)
+     */
+    fun forceRecalibration() {
+        calibrationIssueDetected = true
+        calibrationAttempts = 0
+        calibrationSamples.clear()
+        lastCalibrationTime = 0L
     }
     
     private fun applyCalibratedAccelerometer(accel: AccelerometerData): AccelerometerData {
@@ -300,3 +613,16 @@ private class CircularBuffer<T>(private val capacity: Int) {
     
     fun getAll(): List<T> = buffer.toList()
 }
+
+/**
+ * Represents the current calibration status
+ */
+data class CalibrationStatus(
+    val isCalibrated: Boolean,
+    val calibrationIssueDetected: Boolean,
+    val calibrationSampleCount: Int,
+    val calibrationAttempts: Int,
+    val lastCalibrationTime: Long,
+    val accelOffsets: Triple<Float, Float, Float>,
+    val gyroOffsets: Triple<Float, Float, Float>
+)

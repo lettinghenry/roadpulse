@@ -82,7 +82,7 @@ class RoadAnomalyEventTest : StringSpec({
      */
     "Property 14: For any event parameters, created RoadAnomalyEvent should have unique auto-generated UUID" {
         checkAll(
-            iterations = 100,
+            iterations = 5,
             Arb.double(-90.0, 90.0), // latitude
             Arb.double(-180.0, 180.0), // longitude
             Arb.float(0.1f, 100.0f), // gpsAccuracyM

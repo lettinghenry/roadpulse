@@ -1,0 +1,186 @@
+/* Responsive Layout Styles */
+.responsive-layout {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.responsive-layout-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 1.2rem;
+  color: #666;
+}
+
+/* Device-specific styles */
+.device-mobile {
+  --touch-target-size: 44px;
+  --control-padding: 8px;
+  --font-size-base: 14px;
+  --spacing-small: 4px;
+  --spacing-medium: 8px;
+  --spacing-large: 16px;
+}
+
+.device-tablet {
+  --touch-target-size: 40px;
+  --control-padding: 10px;
+  --font-size-base: 15px;
+  --spacing-small: 6px;
+  --spacing-medium: 12px;
+  --spacing-large: 20px;
+}
+
+.device-desktop {
+  --touch-target-size: 32px;
+  --control-padding: 12px;
+  --font-size-base: 16px;
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 24px;
+}
+
+/* Touch-specific optimizations */
+.touch-enabled {
+  /* Larger touch targets */
+  --min-touch-target: var(--touch-target-size);
+  
+  /* Prevent text selection on touch */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  
+  /* Smooth scrolling */
+  -webkit-overflow-scrolling: touch;
+}
+
+.no-touch {
+  /* Smaller targets for mouse interaction */
+  --min-touch-target: 24px;
+}
+
+/* Mobile-specific layout adjustments */
+.device-mobile .map-controls {
+  position: fixed;
+  bottom: var(--spacing-large);
+  left: 50%;
+  transform: translateX(-50%);
+  top: auto;
+  right: auto;
+  flex-direction: row;
+  justify-content: center;
+  gap: var(--spacing-medium);
+  z-index: 1001;
+}
+
+.device-mobile .location-controls {
+  border-radius: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.device-mobile .location-button {
+  min-height: var(--touch-target-size);
+  min-width: var(--touch-target-size);
+  padding: var(--control-padding);
+  font-size: var(--font-size-base);
+  border-radius: 25px;
+}
+
+/* Tablet-specific adjustments */
+.device-tablet .map-controls {
+  top: var(--spacing-large);
+  right: var(--spacing-large);
+  gap: var(--spacing-medium);
+}
+
+.device-tablet .location-button {
+  min-height: var(--touch-target-size);
+  padding: var(--control-padding) calc(var(--control-padding) * 1.5);
+  font-size: var(--font-size-base);
+}
+
+/* Desktop-specific adjustments */
+.device-desktop .map-controls {
+  top: var(--spacing-large);
+  right: var(--spacing-large);
+  gap: var(--spacing-medium);
+}
+
+.device-desktop .location-button {
+  padding: var(--control-padding) calc(var(--control-padding) * 1.5);
+  font-size: var(--font-size-base);
+}
+
+/* Responsive typography */
+.device-mobile {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.device-tablet {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.device-desktop {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* Safe area support for devices with notches */
+.device-mobile {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .responsive-layout {
+    --border-width: 2px;
+    --shadow-intensity: 0.3;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .responsive-layout * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .responsive-layout {
+    --background-color: #1a1a1a;
+    --text-color: #ffffff;
+    --control-background: #2d2d2d;
+    --control-border: #404040;
+  }
+}
+
+/* Orientation-specific styles */
+@media (orientation: landscape) and (max-width: 768px) {
+  .device-mobile .map-controls {
+    bottom: var(--spacing-medium);
+    flex-direction: row;
+    max-width: 80vw;
+  }
+}
+
+@media (orientation: portrait) and (max-width: 768px) {
+  .device-mobile .map-controls {
+    bottom: calc(var(--spacing-large) + env(safe-area-inset-bottom));
+    flex-direction: row;
+    max-width: 90vw;
+  }
+}

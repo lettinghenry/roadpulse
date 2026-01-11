@@ -1,6 +1,10 @@
 package com.roadpulse.android.data.repository
 
 import com.roadpulse.android.data.database.RoadAnomalyDao
+import com.roadpulse.android.data.error.ErrorHandler
+import com.roadpulse.android.data.error.DatabaseCorruptionException
+import com.roadpulse.android.data.error.StorageException
+import com.roadpulse.android.data.error.StorageFullException
 import com.roadpulse.android.data.model.RoadAnomalyEvent
 import com.roadpulse.android.data.session.SessionManager
 import com.roadpulse.android.di.IoDispatcher
@@ -20,6 +24,7 @@ import javax.inject.Singleton
 class EventRepository @Inject constructor(
     private val roadAnomalyDao: RoadAnomalyDao,
     private val sessionManager: SessionManager,
+    private val errorHandler: ErrorHandler,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ) {
     
@@ -29,23 +34,48 @@ class EventRepository @Inject constructor(
     }
     
     /**
-     * Save a new road anomaly event to the database
+     * Save a new road anomaly event to the database with comprehensive error handling
      */
     suspend fun saveEvent(event: RoadAnomalyEvent): Long = withContext(ioDispatcher) {
-        // Check if we need to cleanup old events first
-        val currentCount = roadAnomalyDao.getEventCount()
-        if (currentCount >= MAX_EVENTS) {
-            cleanupOldEvents()
-        }
-        
-        roadAnomalyDao.insertEvent(event)
+        errorHandler.executeWithRetry(
+            operation = {
+                // Check if we need to cleanup old events first
+                val currentCount = roadAnomalyDao.getEventCount()
+                if (currentCount >= MAX_EVENTS) {
+                    cleanupOldEventsInternal()
+                }
+                
+                roadAnomalyDao.insertEvent(event)
+            },
+            onError = { exception, attempt ->
+                when (exception) {
+                    is android.database.sqlite.SQLiteFullException -> {
+                        throw StorageFullException(exception)
+                    }
+                    is android.database.sqlite.SQLiteDatabaseCorruptException -> {
+                        throw DatabaseCorruptionException(exception)
+                    }
+                    else -> {
+                        errorHandler.logError(exception, "Save event attempt $attempt")
+                    }
+                }
+            }
+        ).getOrThrow()
     }
     
     /**
-     * Get all unsynced events for synchronization
+     * Get all unsynced events for synchronization with error handling
      */
     suspend fun getUnsyncedEvents(): List<RoadAnomalyEvent> = withContext(ioDispatcher) {
-        roadAnomalyDao.getUnsyncedEvents()
+        errorHandler.executeWithRetry(
+            operation = { roadAnomalyDao.getUnsyncedEvents() },
+            onError = { exception, attempt ->
+                errorHandler.logError(exception, "Get unsynced events attempt $attempt")
+            }
+        ).getOrElse { 
+            errorHandler.logError(Exception("Failed to get unsynced events"), "Repository")
+            emptyList() 
+        }
     }
     
     /**
@@ -84,9 +114,23 @@ class EventRepository @Inject constructor(
     }
     
     /**
-     * Clean up old synced events to maintain storage limits
+     * Clean up old synced events to maintain storage limits with error handling
      */
     suspend fun cleanupOldEvents(retentionDays: Int = RETENTION_DAYS) = withContext(ioDispatcher) {
+        errorHandler.executeWithRetry(
+            operation = { cleanupOldEventsInternal(retentionDays) },
+            onError = { exception, attempt ->
+                errorHandler.logError(exception, "Cleanup old events attempt $attempt")
+            }
+        ).onFailure { exception ->
+            errorHandler.logError(exception, "Failed to cleanup old events")
+        }
+    }
+    
+    /**
+     * Internal cleanup method without retry logic
+     */
+    private suspend fun cleanupOldEventsInternal(retentionDays: Int = RETENTION_DAYS) {
         val cutoffTime = Instant.now().minus(retentionDays.toLong(), ChronoUnit.DAYS).toEpochMilli()
         roadAnomalyDao.deleteEventsOlderThan(cutoffTime)
         
@@ -157,20 +201,46 @@ class EventRepository @Inject constructor(
     }
     
     /**
-     * Save an event only if there is an active session
+     * Save an event only if there is an active session with comprehensive error handling
      * This enforces the requirement that events should only be stored during active sessions
      */
     suspend fun saveEventIfSessionActive(event: RoadAnomalyEvent): Long? = withContext(ioDispatcher) {
-        val sessionId = sessionManager.getCurrentSessionId()
-        if (sessionId != null) {
-            // Update session activity since we're processing an event
-            sessionManager.updateActivity()
-            
-            // Ensure the event has the correct session ID
-            val eventWithSession = event.copy(sessionId = sessionId)
-            saveEvent(eventWithSession)
-        } else {
-            // No active session - don't save the event
+        try {
+            val sessionId = sessionManager.getCurrentSessionId()
+            if (sessionId != null) {
+                // Update session activity since we're processing an event
+                sessionManager.updateActivity()
+                
+                // Ensure the event has the correct session ID
+                val eventWithSession = event.copy(sessionId = sessionId)
+                saveEvent(eventWithSession)
+            } else {
+                // No active session - don't save the event
+                null
+            }
+        } catch (e: StorageException) {
+            // Handle storage-specific errors
+            when (e) {
+                is StorageFullException -> {
+                    // Try cleanup and retry once
+                    cleanupOldEvents()
+                    val sessionId = sessionManager.getCurrentSessionId()
+                    if (sessionId != null) {
+                        val eventWithSession = event.copy(sessionId = sessionId)
+                        saveEvent(eventWithSession)
+                    } else null
+                }
+                is DatabaseCorruptionException -> {
+                    errorHandler.logError(e, "Database corruption during event save")
+                    null
+                }
+                else -> {
+                    errorHandler.logError(e, "Storage error during event save")
+                    null
+                }
+            }
+        } catch (e: Exception) {
+            errorHandler.logError(e, "Unexpected error during event save")
             null
         }
     }

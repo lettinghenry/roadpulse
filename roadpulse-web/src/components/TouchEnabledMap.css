@@ -1,0 +1,175 @@
+/* Touch-enabled map styles */
+.touch-enabled-map {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  /* Prevent text selection during touch interactions */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Prevent context menu on long press */
+  -webkit-touch-callout: none;
+  /* Enable hardware acceleration */
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  /* Smooth touch scrolling */
+  -webkit-overflow-scrolling: touch;
+}
+
+.touch-enabled-map.touch-enabled {
+  /* Disable browser's default touch behaviors */
+  touch-action: none;
+  /* Prevent zoom on double tap */
+  -ms-touch-action: none;
+  /* Prevent pull-to-refresh */
+  overscroll-behavior: none;
+}
+
+/* Device-specific optimizations */
+.touch-enabled-map.device-mobile {
+  /* Mobile-specific optimizations */
+  -webkit-tap-highlight-color: transparent;
+  /* Prevent iOS bounce effect */
+  -webkit-overflow-scrolling: auto;
+}
+
+.touch-enabled-map.device-tablet {
+  /* Tablet-specific optimizations */
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Orientation-specific styles */
+.touch-enabled-map.orientation-landscape {
+  /* Landscape orientation optimizations */
+}
+
+.touch-enabled-map.orientation-portrait {
+  /* Portrait orientation optimizations */
+}
+
+/* Leaflet overrides for touch devices */
+.touch-enabled-map .leaflet-container {
+  /* Disable Leaflet's default touch handling */
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
+}
+
+.touch-enabled-map .leaflet-control-container {
+  /* Hide default controls on touch devices */
+  display: none;
+}
+
+.touch-enabled-map .leaflet-popup {
+  /* Optimize popups for touch */
+  pointer-events: auto;
+}
+
+.touch-enabled-map .leaflet-popup-content-wrapper {
+  /* Larger touch targets for popup close button */
+  padding: 8px;
+}
+
+.touch-enabled-map .leaflet-popup-close-button {
+  /* Larger close button for touch */
+  width: 32px;
+  height: 32px;
+  font-size: 18px;
+  line-height: 32px;
+  text-align: center;
+}
+
+/* Touch feedback animations */
+.touch-enabled-map .leaflet-marker-icon {
+  transition: transform 0.1s ease;
+}
+
+.touch-enabled-map .leaflet-marker-icon:active {
+  transform: scale(1.1);
+}
+
+/* Gesture feedback */
+.touch-enabled-map.pinch-active {
+  cursor: zoom-in;
+}
+
+.touch-enabled-map.pan-active {
+  cursor: move;
+}
+
+/* Performance optimizations */
+.touch-enabled-map .leaflet-tile {
+  /* Optimize tile rendering */
+  image-rendering: optimizeSpeed;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: optimize-contrast;
+  -ms-interpolation-mode: nearest-neighbor;
+}
+
+/* Accessibility improvements for touch */
+.touch-enabled-map [role="button"],
+.touch-enabled-map button {
+  min-width: 44px;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .touch-enabled-map .leaflet-marker-icon {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: optimize-contrast;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .touch-enabled-map .leaflet-popup-content-wrapper {
+    background: #2d2d2d;
+    color: #ffffff;
+  }
+  
+  .touch-enabled-map .leaflet-popup-tip {
+    background: #2d2d2d;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .touch-enabled-map * {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .touch-enabled-map .leaflet-marker-icon:active {
+    transform: none;
+  }
+}
+
+/* Loading state for touch maps */
+.touch-enabled-map.loading {
+  pointer-events: none;
+}
+
+.touch-enabled-map.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border: 3px solid #f3f3f3;
+  border-top: 3px solid #3498db;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  z-index: 1000;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

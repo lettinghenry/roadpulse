@@ -1,6 +1,7 @@
 package com.roadpulse.android.data.repository
 
 import com.roadpulse.android.data.database.RoadAnomalyDao
+import com.roadpulse.android.data.error.ErrorHandler
 import com.roadpulse.android.data.model.RoadAnomalyEvent
 import com.roadpulse.android.data.session.SessionManager
 import io.kotest.core.spec.style.FunSpec
@@ -18,9 +19,10 @@ class EventRepositorySessionTest : FunSpec({
     
     val testDispatcher = StandardTestDispatcher()
     val mockDao = mockk<RoadAnomalyDao>(relaxed = true)
+    val mockErrorHandler = mockk<ErrorHandler>(relaxed = true)
     val sessionManager = SessionManager(testDispatcher)
     
-    val repository = EventRepository(mockDao, sessionManager, testDispatcher)
+    val repository = EventRepository(mockDao, sessionManager, mockErrorHandler, testDispatcher)
     
     val sampleEvent = RoadAnomalyEvent(
         createdAt = Instant.now().toEpochMilli(),

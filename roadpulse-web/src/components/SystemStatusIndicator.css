@@ -1,0 +1,6 @@
+/* System Status Indicator Styles */
+
+.system-status-indicator {
+  position: fixed;
+  z-index: 10000;
+  font-family: -apple-system, BlinkMacSyste

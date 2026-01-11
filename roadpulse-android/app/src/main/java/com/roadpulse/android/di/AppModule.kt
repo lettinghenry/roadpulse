@@ -1,12 +1,16 @@
 package com.roadpulse.android.di
 
+import android.content.Context
+import com.roadpulse.android.data.config.SensorMonitorConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Qualifier
+import javax.inject.Singleton
 
 /**
  * Main Hilt module for application-wide dependencies.
@@ -26,6 +30,10 @@ object AppModule {
     @Provides
     @DefaultDispatcher
     fun provideDefaultDispatcher(): CoroutineDispatcher = Dispatchers.Default
+    
+    @Provides
+    @Singleton
+    fun provideSensorMonitorConfig(): SensorMonitorConfig = SensorMonitorConfig()
 }
 
 /**

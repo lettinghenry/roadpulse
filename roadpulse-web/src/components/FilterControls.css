@@ -1,0 +1,363 @@
+/* FilterControls Component Styles */
+
+.filter-controls {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  max-width: 400px;
+  min-width: 300px;
+}
+
+.filter-controls.disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* Header */
+.filter-controls-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.filter-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  padding: 0;
+}
+
+.filter-toggle:hover {
+  color: #111827;
+}
+
+.filter-toggle:disabled {
+  cursor: not-allowed;
+  color: #9ca3af;
+}
+
+.filter-icon {
+  font-size: 16px;
+}
+
+.filter-arrow {
+  transition: transform 0.2s ease;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.filter-arrow.expanded {
+  transform: rotate(180deg);
+}
+
+.clear-filters-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.clear-filters-btn:hover {
+  background: #dc2626;
+}
+
+.clear-filters-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Content */
+.filter-controls-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.filter-controls-content.expanded {
+  max-height: 600px;
+  padding: 16px;
+}
+
+/* Filter Groups */
+.filter-group {
+  margin-bottom: 20px;
+}
+
+.filter-group:last-child {
+  margin-bottom: 0;
+}
+
+.filter-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 8px;
+}
+
+.filter-description {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+/* Severity Checkboxes */
+.severity-checkboxes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.severity-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.severity-checkbox:hover {
+  background-color: #f9fafb;
+}
+
+.severity-checkbox input[type="checkbox"] {
+  margin: 0;
+  cursor: pointer;
+}
+
+.severity-checkbox input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+}
+
+.severity-indicator {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+}
+
+.severity-text {
+  font-size: 13px;
+  color: #374151;
+  user-select: none;
+}
+
+/* Date Range Inputs */
+.date-range-inputs {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.date-input-group {
+  flex: 1;
+  min-width: 120px;
+}
+
+.date-label {
+  display: block;
+  font-size: 12px;
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+.date-input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #374151;
+  background: white;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.date-input:disabled {
+  background: #f9fafb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Confidence Slider */
+.confidence-slider-container {
+  position: relative;
+}
+
+.confidence-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #e5e7eb;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.confidence-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.confidence-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3b82f6;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.confidence-slider:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.confidence-slider:disabled::-webkit-slider-thumb {
+  cursor: not-allowed;
+  background: #9ca3af;
+}
+
+.confidence-slider:disabled::-moz-range-thumb {
+  cursor: not-allowed;
+  background: #9ca3af;
+}
+
+.confidence-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.confidence-value {
+  font-weight: 500;
+  color: #374151;
+  background: #f3f4f6;
+  padding: 2px 6px;
+  border-radius: 3px;
+}
+
+/* Filter Summary */
+.filter-summary {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.summary-text {
+  font-size: 12px;
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* Screen Reader Only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .filter-controls {
+    max-width: none;
+    min-width: 280px;
+    margin: 0 8px;
+  }
+  
+  .filter-controls-content.expanded {
+    padding: 12px;
+  }
+  
+  .date-range-inputs {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .date-input-group {
+    min-width: auto;
+  }
+  
+  .severity-checkboxes {
+    gap: 6px;
+  }
+  
+  .severity-checkbox {
+    padding: 6px 4px;
+  }
+  
+  .filter-group {
+    margin-bottom: 16px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .filter-controls {
+    border: 2px solid #000;
+  }
+  
+  .severity-indicator {
+    border: 2px solid #000;
+  }
+  
+  .confidence-slider::-webkit-slider-thumb {
+    border: 2px solid #000;
+  }
+  
+  .confidence-slider::-moz-range-thumb {
+    border: 2px solid #000;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .filter-controls-content,
+  .filter-arrow,
+  .severity-checkbox,
+  .clear-filters-btn {
+    transition: none;
+  }
+}

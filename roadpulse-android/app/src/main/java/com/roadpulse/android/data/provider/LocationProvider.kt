@@ -7,6 +7,10 @@ import android.location.Location
 import android.os.Looper
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
+import com.roadpulse.android.data.error.ErrorHandler
+import com.roadpulse.android.data.error.LocationException
+import com.roadpulse.android.data.error.LocationPermissionDeniedException
+import com.roadpulse.android.data.error.LocationUnavailableException
 import com.roadpulse.android.data.model.LocationData
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.channels.awaitClose
@@ -24,7 +28,8 @@ import javax.inject.Singleton
  */
 @Singleton
 class LocationProvider @Inject constructor(
-    @ApplicationContext private val context: Context
+    @ApplicationContext private val context: Context,
+    private val errorHandler: ErrorHandler
 ) {
     
     private val fusedLocationClient: FusedLocationProviderClient = 
@@ -71,23 +76,57 @@ class LocationProvider @Inject constructor(
     }
     
     /**
-     * Starts location updates with maximum 5-second intervals
+     * Starts location updates with maximum 5-second intervals and comprehensive error handling
      * Requirements 3.1, 3.2, 3.3, 3.4: GPS data capture
      */
     fun startLocationUpdates() {
-        if (isUpdatesStarted || !hasLocationPermission()) {
+        if (isUpdatesStarted) {
+            return
+        }
+        
+        if (!hasLocationPermission()) {
+            errorHandler.logError(
+                LocationPermissionDeniedException(),
+                "Location updates start"
+            )
+            _isLocationAvailable.value = false
+            return
+        }
+        
+        if (!isLocationEnabled()) {
+            errorHandler.logError(
+                LocationUnavailableException(),
+                "Location services disabled"
+            )
+            _isLocationAvailable.value = false
             return
         }
         
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
-                locationResult.lastLocation?.let { location ->
-                    updateLocationData(location)
+                try {
+                    locationResult.lastLocation?.let { location ->
+                        updateLocationData(location)
+                    }
+                } catch (e: Exception) {
+                    errorHandler.logError(e, "Location result processing")
                 }
             }
             
             override fun onLocationAvailability(locationAvailability: LocationAvailability) {
-                _isLocationAvailable.value = locationAvailability.isLocationAvailable
+                try {
+                    val isAvailable = locationAvailability.isLocationAvailable
+                    _isLocationAvailable.value = isAvailable
+                    
+                    if (!isAvailable) {
+                        errorHandler.logError(
+                            LocationUnavailableException(),
+                            "Location availability changed"
+                        )
+                    }
+                } catch (e: Exception) {
+                    errorHandler.logError(e, "Location availability processing")
+                }
             }
         }
         
@@ -100,19 +139,33 @@ class LocationProvider @Inject constructor(
             isUpdatesStarted = true
             _isLocationAvailable.value = true
         } catch (securityException: SecurityException) {
+            errorHandler.logError(
+                LocationPermissionDeniedException(securityException),
+                "Location updates request"
+            )
+            _isLocationAvailable.value = false
+        } catch (e: Exception) {
+            errorHandler.logError(
+                LocationException("Failed to start location updates", e),
+                "Location updates start"
+            )
             _isLocationAvailable.value = false
         }
     }
     
     /**
-     * Stops location updates to conserve battery
+     * Stops location updates to conserve battery with error handling
      */
     fun stopLocationUpdates() {
-        locationCallback?.let { callback ->
-            fusedLocationClient.removeLocationUpdates(callback)
-            locationCallback = null
-            isUpdatesStarted = false
-            _isLocationAvailable.value = false
+        try {
+            locationCallback?.let { callback ->
+                fusedLocationClient.removeLocationUpdates(callback)
+                locationCallback = null
+                isUpdatesStarted = false
+                _isLocationAvailable.value = false
+            }
+        } catch (e: Exception) {
+            errorHandler.logError(e, "Stop location updates")
         }
     }
     
@@ -157,10 +210,14 @@ class LocationProvider @Inject constructor(
     }
     
     /**
-     * Gets the last known location immediately
+     * Gets the last known location immediately with error handling
      */
     suspend fun getLastKnownLocation(): LocationData? {
         if (!hasLocationPermission()) {
+            errorHandler.logError(
+                LocationPermissionDeniedException(),
+                "Get last known location"
+            )
             return null
         }
         
@@ -168,6 +225,16 @@ class LocationProvider @Inject constructor(
             val location = fusedLocationClient.lastLocation.result
             location?.let { convertToLocationData(it) }
         } catch (securityException: SecurityException) {
+            errorHandler.logError(
+                LocationPermissionDeniedException(securityException),
+                "Get last known location"
+            )
+            null
+        } catch (e: Exception) {
+            errorHandler.logError(
+                LocationException("Failed to get last known location", e),
+                "Get last known location"
+            )
             null
         }
     }
